@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1080">
@@ -26,7 +26,7 @@
     justify-content: space-between;
   }
 
-  /* Header */
+  /* 헤더 */
   .label {
     font-size: 10px;
     font-weight: 400;
@@ -47,7 +47,7 @@
     font-weight: 500;
   }
 
-  /* Hero Numbers */
+  /* 히어로 숫자 */
   .hero {
     margin-top: 56px;
     display: flex;
@@ -111,7 +111,7 @@
     letter-spacing: 2px;
   }
 
-  /* Subtle line */
+  /* 미묘한 구분선 */
   .divider {
     width: 48px;
     height: 1px;
@@ -120,7 +120,7 @@
     opacity: 0.4;
   }
 
-  /* Stats Row */
+  /* 통계 행 */
   .stats-row {
     display: flex;
     gap: 0;
@@ -158,7 +158,7 @@
     letter-spacing: 0.5px;
   }
 
-  /* Memory Cards */
+  /* 메모리 카드 */
   .cards-section {
     margin-top: 40px;
   }
@@ -189,7 +189,7 @@
     line-height: 1;
     margin-bottom: 16px;
   }
-  .card-title-zh {
+  .card-title-ko {
     font-size: 18px;
     font-weight: 500;
     color: #1A1A1A;
@@ -218,7 +218,7 @@
     opacity: 0.35;
   }
 
-  /* Flow */
+  /* 플로우 */
   .flow-section {
     margin-top: 40px;
   }
@@ -284,7 +284,7 @@
     line-height: 1.4;
   }
 
-  /* Quote */
+  /* 인용 */
   .quote-section {
     margin-top: 0;
     padding-top: 32px;
@@ -311,7 +311,7 @@
     font-weight: 400;
   }
 
-  /* Results */
+  /* 결과 */
   .results-row {
     display: flex;
     gap: 48px;
@@ -337,7 +337,7 @@
     letter-spacing: 0.3px;
   }
 
-  /* Footer */
+  /* 푸터 */
   .footer {
     margin-top: 32px;
     display: flex;
@@ -356,16 +356,16 @@
 <body>
 <div class="container">
 
-  <!-- Label -->
+  <!-- 레이블 -->
   <div class="label">System Architecture</div>
 
-  <!-- Title -->
+  <!-- 제목 -->
   <div class="title">
-    AI记忆系统<br>
-    CLAUDE.md <strong>从 93KB<br>优化到 22KB</strong>
+    AI 메모리 시스템<br>
+    CLAUDE.md <strong>93KB에서<br>22KB로 최적화</strong>
   </div>
 
-  <!-- Hero Numbers -->
+  <!-- 히어로 숫자 -->
   <div class="hero">
     <div class="hero-block">
       <span class="hero-label">Before</span>
@@ -387,55 +387,55 @@
     </div>
   </div>
 
-  <!-- Stats -->
+  <!-- 통계 -->
   <div class="divider"></div>
   <div class="stats-row">
     <div class="stat-item">
       <div class="stat-value">2400<span style="font-size:18px;color:#AAAAAA">+</span></div>
-      <div class="stat-desc">lines before<br>in single file</div>
+      <div class="stat-desc">최적화 전 줄 수<br>단일 파일</div>
     </div>
     <div class="stat-item" style="padding-left: 24px;">
       <div class="stat-value">4</div>
-      <div class="stat-desc">structured<br>memory categories</div>
+      <div class="stat-desc">구조화된<br>메모리 카테고리</div>
     </div>
     <div class="stat-item" style="padding-left: 24px;">
       <div class="stat-value">0</div>
-      <div class="stat-desc">information<br>loss</div>
+      <div class="stat-desc">정보<br>손실 없음</div>
     </div>
   </div>
 
-  <!-- Memory Cards -->
+  <!-- 메모리 카드 -->
   <div class="cards-section">
     <div class="cards-label">Memory Categories</div>
     <div class="cards-grid">
       <div class="card featured">
         <div class="card-index">01</div>
-        <div class="card-title-zh">核心身份</div>
+        <div class="card-title-ko">핵심 정체성</div>
         <div class="card-title-en">Core Identity</div>
-        <div class="card-desc">Immutable traits, facts, fundamental identity markers</div>
+        <div class="card-desc">불변적인 특성, 사실, 근본적인 정체성 지표</div>
       </div>
       <div class="card">
         <div class="card-index">02</div>
-        <div class="card-title-zh">偏好设置</div>
+        <div class="card-title-ko">환경 설정</div>
         <div class="card-title-en">Preferences</div>
-        <div class="card-desc">Style choices, tool habits, accumulated over sessions</div>
+        <div class="card-desc">스타일 선택, 도구 습관, 세션을 통해 축적됨</div>
       </div>
       <div class="card">
         <div class="card-index">03</div>
-        <div class="card-title-zh">项目状态</div>
+        <div class="card-title-ko">프로젝트 상태</div>
         <div class="card-title-en">Project State</div>
-        <div class="card-desc">Active tasks, deadlines, priorities, evolving context</div>
+        <div class="card-desc">진행 중인 작업, 마감일, 우선순위, 변화하는 컨텍스트</div>
       </div>
       <div class="card">
         <div class="card-index">04</div>
-        <div class="card-title-zh">日志流水</div>
+        <div class="card-title-ko">일지 기록</div>
         <div class="card-title-en">Daily Logs</div>
-        <div class="card-desc">Session records, never auto-loaded, search on demand</div>
+        <div class="card-desc">세션 기록, 자동 로드 없음, 필요 시 검색</div>
       </div>
     </div>
   </div>
 
-  <!-- Flow -->
+  <!-- 플로우 -->
   <div class="flow-section">
     <div class="flow-label">Processing Flow</div>
     <div class="flow-timeline">
@@ -443,33 +443,33 @@
         <div class="flow-step">
           <div class="flow-dot"></div>
           <div class="flow-step-label">Input</div>
-          <div class="flow-step-text">User<br>Input</div>
+          <div class="flow-step-text">사용자<br>입력</div>
         </div>
         <div class="flow-step">
           <div class="flow-dot"></div>
           <div class="flow-step-label">Route</div>
-          <div class="flow-step-text">Workspace<br>Detection</div>
+          <div class="flow-step-text">워크스페이스<br>감지</div>
         </div>
         <div class="flow-step">
           <div class="flow-dot active"></div>
           <div class="flow-step-label">Load</div>
-          <div class="flow-step-text">Relevant<br>Memory</div>
+          <div class="flow-step-text">관련<br>메모리 로드</div>
         </div>
         <div class="flow-step">
           <div class="flow-dot"></div>
           <div class="flow-step-label">Execute</div>
-          <div class="flow-step-text">Task<br>Processing</div>
+          <div class="flow-step-text">작업<br>처리</div>
         </div>
         <div class="flow-step">
           <div class="flow-dot"></div>
           <div class="flow-step-label">Update</div>
-          <div class="flow-step-text">Memory<br>Write-back</div>
+          <div class="flow-step-text">메모리<br>업데이트</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Quote -->
+  <!-- 인용 -->
   <div class="quote-section">
     <div class="quote-line"></div>
     <div class="quote-text">
@@ -479,20 +479,20 @@
     <div class="results-row">
       <div class="result-item">
         <div class="result-icon"></div>
-        <span class="result-text">Faster context loading</span>
+        <span class="result-text">컨텍스트 로딩 속도 향상</span>
       </div>
       <div class="result-item">
         <div class="result-icon"></div>
-        <span class="result-text">More relevant responses</span>
+        <span class="result-text">더 관련성 높은 응답</span>
       </div>
       <div class="result-item">
         <div class="result-icon"></div>
-        <span class="result-text">Zero information loss</span>
+        <span class="result-text">정보 손실 없음</span>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- 푸터 -->
   <div class="footer">
     <span class="footer-text">Build Studio Style</span>
     <span class="footer-text">2026</span>
