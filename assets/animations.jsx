@@ -1,17 +1,17 @@
 /**
- * animations.jsx — 时间轴动画引擎
+ * animations.jsx — 타임라인 애니메이션 엔진
  *
- * Stage + Sprite 模式，借鉴Remotion但轻量化。
+ * Stage + Sprite 패턴, Remotion에서 영감을 받아 경량화.
  *
- * 导出（挂到 window.Animations）：
- * - Stage: 整个动画容器，提供时间+控制
- * - Sprite: 时间片段，start/end内显示，提供本地进度
- * - useTime(): 读全局时间（秒）
- * - useSprite(): 读本地进度 {t: 0→1, elapsed: seconds, duration: seconds}
+ * 내보내기 (window.Animations에 마운트):
+ * - Stage: 전체 애니메이션 컨테이너, 시간 및 컨트롤 제공
+ * - Sprite: 시간 구간, start/end 범위 내에서 표시, 로컬 진행률 제공
+ * - useTime(): 전역 시간 읽기 (초 단위)
+ * - useSprite(): 로컬 진행률 읽기 {t: 0→1, elapsed: seconds, duration: seconds}
  * - Easing: {linear, easeIn, easeOut, easeInOut, spring, anticipation}
  * - interpolate(t, [input0, input1], [output0, output1], easing?)
  *
- * 用法：
+ * 사용법:
  *   <Stage duration={10}>
  *     <Sprite start={0} end={3}>
  *       <Title />
@@ -21,7 +21,7 @@
  *     </Sprite>
  *   </Stage>
  *
- * 在Sprite子组件里用 useSprite() 读当前片段进度。
+ * Sprite 자식 컴포넌트에서 useSprite()로 현재 구간의 진행률을 읽을 수 있습니다.
  */
 
 (function() {
@@ -35,10 +35,10 @@
     easeIn: t => t * t,
     easeOut: t => 1 - (1 - t) * (1 - t),
     easeInOut: t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2,
-    // expoOut: Anthropic-level 主 easing (cubic-bezier(0.16, 1, 0.3, 1))
-    // 迅速启动 + 缓慢刹车，给数字元素物理重量感
+    // expoOut: Anthropic 수준의 주요 이징 (cubic-bezier(0.16, 1, 0.3, 1))
+    // 빠르게 시작하고 천천히 감속 — 숫자 요소에 물리적 무게감 부여
     expoOut: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
-    // overshoot: 带弹性的 toggle/按钮弹出 (cubic-bezier(0.34, 1.56, 0.64, 1))
+    // overshoot: 탄성 있는 토글/버튼 팝업 (cubic-bezier(0.34, 1.56, 0.64, 1))
     overshoot: t => {
       const c1 = 1.70158, c3 = c1 + 1;
       return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
@@ -170,10 +170,9 @@
     const startTimeRef = useRef(performance.now());
     const canvasRef = useRef(null);
 
-    // Recording mode: render-video.js injects window.__recording = true before goto.
-    // When set, force loop=false so the export ends on the final frame instead of
-    // wrapping back to t=0 and capturing the start of the next cycle.
-    // (Browsers viewing manually still loop because __recording is undefined there.)
+    // 녹화 모드: render-video.js가 goto 전에 window.__recording = true를 주입합니다.
+    // 설정되면 loop=false로 강제하여 내보내기가 최종 프레임에서 종료되도록 합니다.
+    // (수동으로 브라우저에서 볼 때는 __recording이 undefined이므로 계속 루프됩니다.)
     const effectiveLoop = (typeof window !== 'undefined' && window.__recording) ? false : loop;
 
     useEffect(() => {
@@ -196,11 +195,11 @@
       function tick(now) {
         if (cancelled) return;
         if (last === null) {
-          // First animation frame. Set last=now so delta starts at 0,
-          // AND announce readiness for video export.
-          // This pairing is critical: window.__ready must flip to true at
-          // the exact moment WebM captures frame 0 of the animation, so
-          // render-video.js's trim offset equals the pre-animation gap.
+          // 첫 번째 애니메이션 프레임. last=now로 설정하여 delta를 0에서 시작,
+          // 동시에 비디오 내보내기 준비 완료를 알립니다.
+          // 이 페어링이 중요: window.__ready는 WebM이 애니메이션 0프레임을 캡처하는
+          // 정확한 순간에 true로 전환되어야 render-video.js의 트림 오프셋이
+          // 애니메이션 이전 공백과 일치합니다.
           last = now;
           if (typeof window !== 'undefined') window.__ready = true;
         }
@@ -209,9 +208,9 @@
         setTime(prev => {
           const next = prev + delta;
           if (next >= duration) {
-            // effectiveLoop honors window.__recording (forced non-loop during export).
-            // Stop just shy of duration so the final-frame state stays rendered
-            // (avoids exiting all Sprites that end exactly at `duration`).
+            // effectiveLoop는 window.__recording을 따릅니다 (내보내기 중 비루프 강제).
+            // duration 직전에 멈춰 최종 프레임 상태를 유지합니다
+            // (정확히 `duration`에서 끝나는 Sprite가 종료되는 것을 방지).
             return effectiveLoop ? 0 : duration - 0.001;
           }
           return next;
@@ -219,8 +218,8 @@
         rafRef.current = requestAnimationFrame(tick);
       }
 
-      // Wait for fonts before starting the clock — makes frame 0 the
-      // real "finished-loading" frame users see, not a fallback-font flash.
+      // 폰트 로드 완료 후 타이머 시작 — 0프레임이 폴백 폰트 플래시가 아닌
+      // 실제 "로딩 완료" 프레임이 되도록 합니다.
       const startAfterFonts = () => {
         if (cancelled) return;
         rafRef.current = requestAnimationFrame(tick);
@@ -280,14 +279,14 @@
               style={stageStyles.button}
               onClick={() => setPlaying(p => !p)}
             >
-              {playing ? '⏸ 暂停' : '▶ 播放'}
+              {playing ? '⏸ 일시정지' : '▶ 재생'}
             </button>
 
             <button
               style={stageStyles.button}
               onClick={() => setTime(0)}
             >
-              ⏮ 开始
+              ⏮ 처음으로
             </button>
 
             <div style={stageStyles.timeDisplay}>
