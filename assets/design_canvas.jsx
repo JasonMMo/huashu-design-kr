@@ -1,27 +1,28 @@
 /**
- * DesignCanvas — 变体并排网格布局
+ * DesignCanvas — 변형 비교 그리드 레이아웃
  *
- * 用于展示2+个静态设计variations让用户对比选择。
- * 每个variation有label，可hover放大。
+ * 2개 이상의 정적 디자인 variation을 나란히 표시하여 사용자가 비교·선택하도록 합니다.
+ * 각 variation에는 레이블이 있으며, 마우스 오버 시 확대됩니다.
  *
- * 用法：
+ * 사용법:
  *   <DesignCanvas
- *     title="Hero区设计探索"
- *     subtitle="3个方向对比"
+ *     title="히어로 영역 디자인 탐색"
+ *     subtitle="3가지 방향 비교"
  *     columns={3}
  *   >
- *     <Variation label="Minimal" description="极简克制版">
- *       <div>...你的设计1...</div>
+ *     <Variation label="Minimal" description="극도로 간결한 버전">
+ *       <div>...디자인 1...</div>
  *     </Variation>
- *     <Variation label="Editorial" description="杂志编辑风">
- *       <div>...你的设计2...</div>
+ *     <Variation label="Editorial" description="잡지 에디토리얼 스타일">
+ *       <div>...디자인 2...</div>
  *     </Variation>
- *     <Variation label="Brutalist" description="粗粝原始">
- *       <div>...你的设计3...</div>
+ *     <Variation label="Brutalist" description="거칠고 원초적인 스타일">
+ *       <div>...디자인 3...</div>
  *     </Variation>
  *   </DesignCanvas>
  *
- * 配合React+Babel使用。放在合适的script里，然后window.DesignCanvas/window.Variation可用。
+ * React+Babel과 함께 사용합니다. 적절한 script 태그 내에 배치하면
+ * window.DesignCanvas / window.Variation 으로 사용 가능합니다.
  */
 
 const canvasStyles = {
@@ -29,7 +30,7 @@ const canvasStyles = {
     minHeight: '100vh',
     background: '#F5F5F0',
     padding: '40px 60px',
-    fontFamily: '-apple-system, "SF Pro Text", "PingFang SC", sans-serif',
+    fontFamily: '-apple-system, "SF Pro Text", "Apple SD Gothic Neo", sans-serif',
   },
   header: {
     marginBottom: 48,
