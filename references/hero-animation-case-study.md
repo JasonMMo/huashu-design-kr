@@ -1,86 +1,86 @@
-# Gallery Ripple + Multi-Focus · 场景编排哲学
+# Gallery Ripple + Multi-Focus · 장면 편성 철학
 
-> 从 huashu-design hero 动画 v9（25 秒，8 场景）里提炼出的**一种可复用的视觉编排结构**。
-> 不是动画制作流水线，是**什么场景下这种编排是"对的"**。
-> 实战参考：[demos/hero-animation-v9.mp4](../demos/hero-animation-v9.mp4) · [https://www.huasheng.ai/huashu-design-hero/](https://www.huasheng.ai/huashu-design-hero/)
+> huashu-design hero 애니메이션 v9 (25초, 8장면)에서 추출한 **재사용 가능한 시각 편성 구조**입니다.
+> 애니메이션 제작 파이프라인이 아니라, **어떤 장면에서 이 편성이 「올바른」 것인지**를 설명합니다.
+> 실전 참고：[demos/hero-animation-v9.mp4](../demos/hero-animation-v9.mp4) · [https://www.huasheng.ai/huashu-design-hero/](https://www.huasheng.ai/huashu-design-hero/)
 
-## 一句话先行
+## 한 줄 요약
 
-> **当你有 20+ 同质视觉素材、场景需要"表达规模感和深度"时，优先考虑 Gallery Ripple + Multi-Focus 这套编排，而不是堆砌排版。**
+> **시각적으로 동질한 소재가 20개 이상 있고, 장면에서 「규모감과 깊이를 표현」해야 할 때, 타이포그래피를 쌓는 대신 Gallery Ripple + Multi-Focus 편성을 먼저 고려하세요.**
 
-通用 SaaS feature 动画、产品发布会、skill 推广、系列作品集展示——只要素材数量够、风格一致，这套结构几乎都能出效果。
+일반적인 SaaS 기능 애니메이션, 제품 출시회, 스킬 홍보, 시리즈 포트폴리오 전시 — 소재 수가 충분하고 스타일이 일관되다면, 이 구조는 거의 항상 효과를 냅니다.
 
 ---
 
-## 这个手法究竟在表达什么
+## 이 기법이 실제로 표현하는 것
 
-不是"秀素材"——是通过**两个节奏变化**讲一个叙事：
+「소재를 과시」하는 것이 아닙니다 — **두 번의 리듬 변화**로 하나의 내러티브를 말합니다：
 
-**第一拍 · Ripple 展开（~1.5s）**：从中心向四周扩散出 48 张卡片，观众被"量"震住——「哦，这东西有这么多产出」。
+**첫 번째 박자 · Ripple 전개 (~1.5s)**：중심에서 사방으로 48장의 카드가 퍼져나가며, 관람자는 「양」에 압도됩니다 — 「아, 이게 이렇게 많은 결과물이 있구나」.
 
-**第二拍 · Multi-Focus（~8s，4 次循环）**：镜头在慢速 pan 的同时，4 次把背景 dim + desaturate，把某一张卡单独放大到屏幕中央——观众从"量的冲击"切换到"质的凝视"，每次 1.7s 节奏稳定。
+**두 번째 박자 · Multi-Focus (~8s, 4번 순환)**：카메라가 느린 pan을 하면서 동시에 4번, 배경을 dim + desaturate하고 특정 카드 하나를 화면 중앙으로 크게 확대합니다 — 관람자는 「양의 충격」에서 「질의 응시」로 전환되며, 각 1.7초씩 안정적인 리듬으로 반복됩니다.
 
-**核心叙事结构**：**规模（Ripple） → 凝视（Focus × 4） → 淡出（Walloff）**。这三拍组合起来表达的是「Breadth × Depth」——不只是能做很多，每一个还都值得停下来看。
+**핵심 내러티브 구조**：**규모 (Ripple) → 응시 (Focus × 4) → 페이드아웃 (Walloff)**. 이 세 박자의 조합이 표현하는 것은 「Breadth × Depth」 — 많은 것을 할 수 있을 뿐 아니라, 하나하나 멈춰서 볼 만한 가치가 있습니다.
 
-对比一下反例：
+반례와 비교：
 
-| 做法 | 观众感知 |
+| 방식 | 관람자 인식 |
 |------|---------|
-| 48 张卡静态排列（没有 Ripple）| 好看但无叙事，像一张 grid screenshot |
-| 一张一张快切（没有 Gallery context）| 像 slideshow，失去"规模感" |
-| 只有 Ripple 没有 Focus | 震住了但没让人记住任何具体一张 |
-| **Ripple + Focus × 4（本配方）** | **先震撼于量，再凝视于质，最后平静淡出——完整情绪弧线** |
+| 48장 카드 정적 배열 (Ripple 없음) | 예쁘지만 내러티브 없음, grid 스크린샷처럼 보임 |
+| 한 장씩 빠르게 전환 (Gallery 컨텍스트 없음) | 슬라이드쇼처럼 보이고 「규모감」을 잃음 |
+| Ripple만 있고 Focus 없음 | 압도되었지만 특정 카드 하나도 기억에 남지 않음 |
+| **Ripple + Focus × 4 (본 레시피)** | **먼저 양에 압도, 다음 질을 응시, 마지막으로 평화로운 페이드아웃 — 완전한 감정 아크** |
 
 ---
 
-## 前置条件（必须全部满足）
+## 전제 조건 (모두 충족되어야 함)
 
-这套编排**不是万能的**，下面 4 条缺一不可：
+이 편성은 **만능이 아닙니다**. 아래 4가지를 모두 만족해야 합니다：
 
-1. **素材规模 ≥ 20 张，最好 30+**
-   少于 20 张 Ripple 会显得"空"——48 格里每格都在动才有密度感。v9 用了 48 格 × 32 张图（循环填充）。
+1. **소재 수 ≥ 20장, 최적은 30+**
+   20장 미만이면 Ripple이 「비어 보입니다」 — 48칸 모두 움직여야 밀도감이 생깁니다. v9는 48칸 × 32장 이미지(순환 채움)를 사용했습니다.
 
-2. **素材视觉风格一致**
-   全是 16:9 slide 预览 / 全是 app 截图 / 全是封面设计——长宽比、色调、版式得像是"一套"。混搭会让 Gallery 看起来像剪贴板。
+2. **소재의 시각 스타일이 일관되어야 함**
+   모두 16:9 슬라이드 미리보기 / 모두 앱 스크린샷 / 모두 커버 디자인 — 비율, 색조, 레이아웃이 「한 세트」처럼 보여야 합니다. 혼재하면 Gallery가 클립보드처럼 보입니다.
 
-3. **素材单独放大后仍有可读信息**
-   Focus 是把某张卡放大到 960px 宽，如果原图放大后糊了或信息稀薄，Focus 这一拍就废了。反向验证：能不能从 48 张里挑出 4 张作为"最有代表性"的？挑不出来就说明素材质量不齐。
+3. **소재를 단독으로 확대했을 때 여전히 읽을 수 있는 정보가 있어야 함**
+   Focus는 특정 카드를 960px 너비로 확대합니다. 원본 이미지를 확대했을 때 흐릿하거나 정보가 희박하면 Focus 박자가 무의미해집니다. 역방향 검증：48장 중에서 「가장 대표적인」 4장을 고를 수 있습니까? 고를 수 없다면 소재 품질이 고르지 않다는 의미입니다.
 
-4. **场景本身是 landscape 或 square，不是竖屏**
-   Gallery 的 3D 倾斜（`rotateX(14deg) rotateY(-10deg)`）需要横向延伸感，竖屏会让倾斜效果看起来窄且别扭。
+4. **장면이 가로 또는 정사각형, 세로 화면이 아닐 것**
+   Gallery의 3D 기울기 (`rotateX(14deg) rotateY(-10deg)`)는 가로 방향의 뻗어나감이 필요합니다. 세로 화면에서는 기울기가 좁고 어색해 보입니다.
 
-**缺条件的后备路径**：
+**조건이 부족할 때의 대안 경로**：
 
-| 缺什么 | 退化为什么 |
+| 부족한 것 | 대안 |
 |-------|-----------|
-| 素材 < 20 张 | 改用「3-5 张并排静态展示 + 逐个 focus」 |
-| 风格不一致 | 改用「封面 + 3 章节大图」的 keynote-style |
-| 信息稀薄 | 改用「data-driven dashboard」或「金句 + 大字」 |
-| 竖屏场景 | 改用「vertical scroll + sticky cards」 |
+| 소재 < 20장 | 「3-5장 나란히 정적 배열 + 순차 focus」로 변경 |
+| 스타일 불일치 | 「커버 + 3개 챕터 대형 이미지」의 keynote 스타일로 변경 |
+| 정보 희박 | 「데이터 기반 대시보드」또는 「핵심 문구 + 대형 타이포그래피」로 변경 |
+| 세로 화면 장면 | 「vertical scroll + sticky cards」로 변경 |
 
 ---
 
-## 技术配方（v9 实战参数）
+## 기술 레시피 (v9 실전 파라미터)
 
-### 4-Layer 结构
+### 4-Layer 구조
 
 ```
 viewport (1920×1080, perspective: 2400px)
-  └─ canvas (4320×2520, 超大 overflow) → 3D tilt + pan
+  └─ canvas (4320×2520, 대형 overflow) → 3D tilt + pan
       └─ 8×6 grid = 48 cards (gap 40px, padding 60px)
           └─ img (16:9, border-radius 9px)
       └─ focus-overlay (absolute center, z-index 40)
-          └─ img (matches selected slide)
+          └─ img (선택된 슬라이드와 일치)
 ```
 
-**关键**：canvas 比 viewport 大 2.25 倍，这样 pan 才有"窥视更大世界"的感觉。
+**핵심**：canvas가 viewport보다 2.25배 크기 때문에 pan에 「더 큰 세계를 들여다보는」 느낌이 생깁니다.
 
-### Ripple 展开（距离延迟算法）
+### Ripple 전개 (거리 지연 알고리즘)
 
 ```js
-// 每张卡的入场时间 = 距中心的距离 × 0.8s 延迟
+// 각 카드의 등장 시간 = 중심까지의 거리 × 0.8s 지연
 const col = i % 8, row = Math.floor(i / 8);
-const dc = col - 3.5, dr = row - 2.5;       // 到中心的 offset
+const dc = col - 3.5, dr = row - 2.5;       // 중심까지의 offset
 const dist = Math.hypot(dc, dr);
 const maxDist = Math.hypot(3.5, 2.5);
 const delay = (dist / maxDist) * 0.8;       // 0 → 0.8s
@@ -88,15 +88,15 @@ const localT = Math.max(0, (t - rippleStart - delay) / 0.7);
 const opacity = expoOut(Math.min(1, localT));
 ```
 
-**核心参数**：
-- 总时长 1.7s（`T.s3_ripple: [8.3, 10.0]`）
-- 最大延迟 0.8s（中心最早出，角落最晚）
-- 每张卡入场时长 0.7s
-- Easing: `expoOut`（爆发感，不是平滑）
+**핵심 파라미터**：
+- 총 시간 1.7s (`T.s3_ripple: [8.3, 10.0]`)
+- 최대 지연 0.8s (중심이 가장 먼저, 모서리가 가장 늦게)
+- 각 카드 등장 시간 0.7s
+- Easing: `expoOut` (폭발감, 부드러움이 아님)
 
-**同时做的事**：canvas scale 从 1.25 → 0.94（zoom out to reveal）—— 配合出现的同步推远感。
+**동시에 하는 것**：canvas scale 1.25 → 0.94 (zoom out to reveal) — 등장과 함께 동기화된 줌 아웃 느낌.
 
-### Multi-Focus（4 次节奏）
+### Multi-Focus (4번의 리듬)
 
 ```js
 T.focuses = [
@@ -107,31 +107,31 @@ T.focuses = [
 ];
 ```
 
-**节奏规律**：每个 focus 1.7s，间隔 0.6s 喘息。总计 8s（11.0–19.6s）。
+**리듬 법칙**：각 focus 1.7s, 0.6s 간격으로 숨 고르기. 총 8s (11.0–19.6s).
 
-**每次 focus 内部**：
-- In ramp: 0.4s（`expoOut`）
-- Hold: 中间 0.9s（`focusIntensity = 1`）
-- Out ramp: 0.4s（`easeOut`）
+**각 focus 내부**：
+- In ramp: 0.4s (`expoOut`)
+- Hold: 중간 0.9s (`focusIntensity = 1`)
+- Out ramp: 0.4s (`easeOut`)
 
-**背景变化（这是关键）**：
+**배경 변화 (이것이 핵심)**：
 
 ```js
 if (focusIntensity > 0) {
-  const dimOp = entryOp * (1 - 0.6 * focusIntensity);  // dim to 40%
+  const dimOp = entryOp * (1 - 0.6 * focusIntensity);  // 40%로 dim
   const brt = 1 - 0.32 * focusIntensity;                // brightness 68%
   const sat = 1 - 0.35 * focusIntensity;                // saturate 65%
   card.style.filter = `brightness(${brt}) saturate(${sat})`;
 }
 ```
 
-**不只是 opacity——同时 desaturate + darken**。这让前景 overlay 的色彩"跳出来"，而不是只是"变亮一点"。
+**opacity만이 아닙니다 — 동시에 desaturate + darken 처리합니다**. 이로써 전경 overlay의 색채가 「튀어나오는」 것처럼 보이지, 단순히 「조금 밝아지는」 것이 아닙니다.
 
-**Focus overlay 尺寸动画**：
-- 从 400×225（入场）→ 960×540（hold 态）
-- 外围有 3 层 shadow + 3px accent 色 outline ring，呈现"被框住的感觉"
+**Focus overlay 크기 애니메이션**：
+- 400×225 (등장) → 960×540 (hold 상태)
+- 외곽에 3층 shadow + 3px accent 색 outline ring, 「프레임 안에 담긴」 느낌 표현
 
-### Pan（持续感让静止不无聊）
+### Pan (지속감으로 정적인 화면이 지루하지 않게)
 
 ```js
 const panT = Math.max(0, t - 8.6);
@@ -139,112 +139,112 @@ const panX = Math.sin(panT * 0.12) * 220 - panT * 8;
 const panY = Math.cos(panT * 0.09) * 120 - panT * 5;
 ```
 
-- 正弦波 + 线性 drift 双层运动——不是纯循环，每个时刻位置都不同
-- X/Y 频率不同（0.12 vs 0.09）避免视觉上看出"规律循环"
-- clamp 在 ±900/500px 防止漂出
+- 사인파 + 선형 drift 이중 운동 — 순수 루프가 아니라 매 순간 위치가 다름
+- X/Y 주파수가 다름 (0.12 vs 0.09) — 시각적으로 「규칙적 루프」처럼 보이지 않도록
+- ±900/500px 범위로 클램프하여 가장자리 이탈 방지
 
-**为什么不用纯线性 pan**：纯线性观众会"预测"下一秒在哪；正弦+drift 让每一秒都是新的，3D 倾斜下产生"微晕船感"（好的那种），注意力被拉住。
+**왜 순수 선형 pan을 쓰지 않는가**：순수 선형이면 관람자가 「다음 초의 위치를 예측」합니다. 사인 + drift는 매 초가 새로운 위치여서 3D 기울기 아래에서 「미세한 뱃멀미 감」(좋은 쪽의)이 생기며 주의력을 붙잡아 둡니다.
 
 ---
 
-## 5 个可复用模式（从 v6→v9 迭代中蒸馏）
+## 5가지 재사용 가능한 패턴 (v6→v9 반복에서 증류)
 
-### 1. **expoOut 作为主 easing，不是 cubicOut**
+### 1. **주요 easing으로 expoOut 사용, cubicOut이 아님**
 
-`easeOut = 1 - (1-t)³`（平滑）vs `expoOut = 1 - 2^(-10t)`（爆发后迅速收敛）。
+`easeOut = 1 - (1-t)³` (부드러움) vs `expoOut = 1 - 2^(-10t)` (폭발 후 빠른 수렴).
 
-**选择理由**：expoOut 的前 30% 很快达到 90%，更像物理阻尼，符合"重的东西落地"的直觉。特别适合：
-- 卡片入场（重量感）
-- Ripple 扩散（冲击波）
-- Brand 浮起（落定感）
+**선택 이유**：expoOut은 앞 30%에서 이미 90%에 도달하며, 물리적 감쇠에 가깝고 「무거운 것이 착지하는」 직관에 부합합니다. 특히 적합한 곳：
+- 카드 등장 (무게감)
+- Ripple 확산 (충격파)
+- 브랜드 부상 (착지감)
 
-**什么时候仍用 cubicOut**：focus out ramp、对称的微动效。
+**여전히 cubicOut을 사용하는 경우**：focus out ramp, 대칭적인 미세 동작 효과.
 
-### 2. **纸感底色 + 赤陶橙 accent（Anthropic 血统）**
+### 2. **종이 느낌의 배경색 + 테라코타 오렌지 accent (Anthropic 계보)**
 
 ```css
---bg: #F7F4EE;        /* 暖纸 */
---ink: #1D1D1F;       /* 几乎黑 */
---accent: #D97757;    /* 赤陶橙 */
---hairline: #E4DED2;  /* 暖线条 */
+--bg: #F7F4EE;        /* 따뜻한 종이 */
+--ink: #1D1D1F;       /* 거의 검정 */
+--accent: #D97757;    /* 테라코타 오렌지 */
+--hairline: #E4DED2;  /* 따뜻한 선 */
 ```
 
-**为什么**：温暖底色在 GIF 压缩后依然有"呼吸感"，不像纯白会显得"屏幕感"。赤陶橙作为唯一 accent 贯穿 terminal prompt、dir-card 选中、cursor、brand hyphen、focus ring——所有视觉锚点都被这一个色串起来。
+**이유**：따뜻한 배경색은 GIF 압축 후에도 「숨 쉬는 느낌」이 남으며, 순수 흰색처럼 「화면 느낌」이 나지 않습니다. 테라코타 오렌지가 유일한 accent로 터미널 프롬프트, dir-card 선택, 커서, 브랜드 하이픈, focus ring — 모든 시각적 앵커 포인트를 이 하나의 색으로 연결합니다.
 
-**v5 教训**：加了 noise overlay 以模拟"纸纹"，结果 GIF 帧压缩全废（每帧都不同）。v6 改为"只用底色 + 暖 shadow"，纸感保留 90%，GIF 体积缩小 60%。
+**v5 교훈**：「종이 질감」 시뮬레이션을 위해 noise overlay를 추가했더니 GIF 프레임 압축이 전부 망가졌습니다 (매 프레임이 달라짐). v6에서 「배경색 + 따뜻한 shadow만 사용」으로 변경하여 종이 느낌 90% 유지, GIF 파일 크기 60% 감소.
 
-### 3. **两档 Shadow 模拟深度，不用真 3D**
+### 3. **두 단계 Shadow로 깊이감 구현, 진짜 3D 불필요**
 
 ```css
 .gallery-card.depth-near { box-shadow: 0 32px 80px -22px rgba(60,40,20,0.22), ... }
 .gallery-card.depth-far  { box-shadow: 0 14px 40px -16px rgba(60,40,20,0.10), ... }
 ```
 
-用 `sin(i × 1.7) + cos(i × 0.73)` 确定性算法给每张卡分配 near/mid/far 三档 shadow——**视觉上有"三维堆叠"感，但每帧 transform 完全不变，GPU 消耗 0**。
+`sin(i × 1.7) + cos(i × 0.73)` 결정론적 알고리즘으로 각 카드에 near/mid/far 세 단계 shadow 배정 — **시각적으로 「3차원 겹쳐짐」처럼 보이지만, 매 프레임 transform이 완전히 변하지 않아 GPU 소비 0**.
 
-**真 3D 的代价**：每个 card 单独 `translateZ`，GPU 每帧都在算 48 个 transform + shadow blur。v4 试过，Playwright 录制 25fps 都吃力。v6 的两档 shadow 肉眼效果差距 <5%，但成本差 10 倍。
+**진짜 3D의 비용**：카드 각각에 `translateZ`, GPU가 매 프레임 48개의 transform + shadow blur를 계산합니다. v4에서 시도해봤을 때 Playwright 녹화 25fps에서도 버거웠습니다. v6의 두 단계 shadow는 육안 효과 차이가 5% 미만이지만, 비용 차이는 10배입니다.
 
-### 4. **字重变化（font-variation-settings）比字号变化更电影感**
+### 4. **폰트 굵기 변화 (font-variation-settings)가 폰트 크기 변화보다 영화적**
 
 ```js
 const wght = 100 + (700 - 100) * morphP;  // 100 → 700 over 0.9s
 wordmark.style.fontVariationSettings = `"wght" ${wght.toFixed(0)}`;
 ```
 
-Brand wordmark 从 Thin → Bold 用 0.9s 渐变，配合 letter-spacing 微调（-0.045 → -0.048em）。
+브랜드 워드마크가 Thin → Bold으로 0.9초에 걸쳐 변화하며, letter-spacing 미조정 포함 (-0.045 → -0.048em).
 
-**为什么比放大缩小好**：
-- 放大缩小观众看过太多，预期固化
-- 字重变化是"内在的充实感"，像气球被吹满，而不是"被推近"
-- variable fonts 是 2020+ 才普及的特性，观众下意识感觉"现代"
+**왜 확대/축소보다 좋은가**：
+- 확대/축소는 관람자가 너무 많이 봐서 기대가 고정됨
+- 폰트 굵기 변화는 「내적인 충만감」이며, 「가까이 밀려오는」 것이 아니라 풍선이 채워지는 것 같음
+- variable fonts는 2020년 이후 보편화된 특성으로, 관람자가 무의식적으로 「현대적」이라고 느낌
 
-**限制**：必须用支持 variable font 的字体（Inter/Roboto Flex/Recursive 等）。普通静态字体只能拟态（切换几个固定 weight 有跳变）。
+**제한**：variable font을 지원하는 폰트를 사용해야 합니다 (Inter / Roboto Flex / Recursive 등). 일반 정적 폰트는 흉내만 낼 수 있으며 (몇 가지 고정 weight 전환으로 점프가 생김).
 
-### 5. **Corner Brand 低强度持续签名**
+### 5. **코너 브랜드 저강도 지속 서명**
 
-Gallery 阶段左上角有个 `HUASHU · DESIGN` 小标识，16% opacity 色值，12px 字号，宽字距。
+Gallery 단계에서 좌상단에 `HUASHU · DESIGN` 소형 식별자가 있습니다 — 16% opacity, 12px 폰트, 넓은 자간.
 
-**为什么加这个**：
-- Ripple 爆发后观众容易"失焦"不记得在看什么，左上角轻标示帮助 anchor
-- 比全屏大 logo 更高级——做品牌的人知道，品牌签名不需要喊
-- 在 GIF 被截屏分享时仍留下归属信号
+**왜 추가하는가**：
+- Ripple 폭발 후 관람자가 「어디에 집중해야 할지 모르게」 되기 쉬운데, 좌상단 가벼운 표시가 앵커 역할을 합니다
+- 전체 화면 큰 로고보다 더 고급스럽습니다 — 브랜딩을 아는 사람은 브랜드 서명이 소리칠 필요가 없다는 것을 압니다
+- GIF가 캡처되어 공유될 때도 귀속 신호가 남습니다
 
-**规则**：只在中段（画面 busy）出现，开场关闭（不遮 terminal），结尾关闭（brand reveal 是主角）。
-
----
-
-## 反例：什么时候不要用这套编排
-
-**❌ 产品演示（要展示功能的）**：Gallery 让每一张都一闪而过，观众记不住任何一个功能。改用「单屏 focus + tooltip 标注」。
-
-**❌ 数据驱动内容**：观众要读数字，Gallery 的快速节奏不给时间读。改用「数据图表 + 逐项 reveal」。
-
-**❌ 故事叙事**：Gallery 是"并列"结构，故事需要"因果"。改用 keynote 章节切换。
-
-**❌ 素材只有 3-5 张**：Ripple 密度不够，看起来像"补丁"。改用「静态排列 + 逐张高亮」。
-
-**❌ 竖屏（9:16）**：3D tilt 需要横向延伸，竖屏会让倾斜感觉"歪"而不是"展开"。
+**규칙**：중간 구간 (화면이 바쁠 때)에만 표시됩니다. 오프닝에는 꺼두고 (터미널을 가리지 않도록), 엔딩에도 꺼둡니다 (브랜드 reveal이 주인공).
 
 ---
 
-## 如何判断自己的任务适用这套编排
+## 반례：이 편성을 쓰지 말아야 할 때
 
-三步快速检查：
+**❌ 제품 기능 시연 (기능을 보여줘야 하는 경우)**：Gallery는 모든 카드가 순식간에 지나가 관람자가 어떤 기능도 기억하지 못합니다. 「단일 화면 focus + tooltip 주석」으로 변경하세요.
 
-**Step 1 · 素材数量**：数一下你有多少同类视觉素材。< 15 → 停；15-25 → 凑；25+ → 直接用。
+**❌ 데이터 중심 콘텐츠**：관람자가 숫자를 읽어야 하는데, Gallery의 빠른 리듬은 읽을 시간을 주지 않습니다. 「데이터 차트 + 순차 reveal」로 변경하세요.
 
-**Step 2 · 一致性测试**：把 4 张随机素材并排放，是否像「一套」？不像 → 先统一风格再做，或改方案。
+**❌ 스토리 내러티브**：Gallery는 「병렬」 구조이지만, 스토리는 「인과」가 필요합니다. keynote 챕터 전환으로 변경하세요.
 
-**Step 3 · 叙事匹配**：你要表达的是「Breadth × Depth」（量 × 质）吗？还是「流程」「功能」「故事」？不是前者就别硬套。
+**❌ 소재가 3-5장밖에 없음**：Ripple 밀도가 충분하지 않아 「패치」처럼 보입니다. 「정적 배열 + 순차 하이라이트」로 변경하세요.
 
-三步都 yes，直接 fork v6 HTML，改 `SLIDE_FILES` 数组和时间轴就能复用。调色板改 `--bg / --accent / --ink`，整体换皮不换骨。
+**❌ 세로 화면 (9:16)**：3D tilt는 가로 방향의 뻗어나감이 필요합니다. 세로 화면에서는 기울기가 「넓게 펼쳐지는」 것이 아니라 「삐딱하게」 보입니다.
 
 ---
 
-## 相关 Reference
+## 자신의 작업에 이 편성이 적합한지 판단하는 방법
 
-- 完整技术流程：[references/animations.md](animations.md) · [references/animation-best-practices.md](animation-best-practices.md)
-- 动画导出流水线：[references/video-export.md](video-export.md)
-- 音频配置（BGM + SFX 双轨）：[references/audio-design-rules.md](audio-design-rules.md)
-- Apple 画廊风格的横向参考：[references/apple-gallery-showcase.md](apple-gallery-showcase.md)
-- 源 HTML（v6 + 音频集成版）：`www.huasheng.ai/huashu-design-hero/index.html`
+3단계 빠른 확인：
+
+**Step 1 · 소재 수 확인**：동질한 시각 소재가 몇 개인지 세어보세요. < 15 → 중단；15-25 → 억지스러움；25+ → 바로 사용.
+
+**Step 2 · 일관성 테스트**：4장의 랜덤 소재를 나란히 놓았을 때 「한 세트」처럼 보입니까? 아니라면 → 먼저 스타일을 통일하거나 방안을 바꾸세요.
+
+**Step 3 · 내러티브 일치 확인**：표현하려는 것이 「Breadth × Depth」 (양 × 질)입니까? 「프로세스」「기능」「스토리」입니까? 전자가 아니라면 억지로 맞추지 마세요.
+
+세 단계 모두 yes라면, v6 HTML을 그대로 fork하여 `SLIDE_FILES` 배열과 타임라인만 바꾸면 재사용할 수 있습니다. `--bg / --accent / --ink`만 바꾸면 전체 스킨이 바뀌며 골격은 유지됩니다.
+
+---
+
+## 관련 레퍼런스
+
+- 완전한 기술 흐름：[references/animations.md](animations.md) · [references/animation-best-practices.md](animation-best-practices.md)
+- 애니메이션 내보내기 파이프라인：[references/video-export.md](video-export.md)
+- 오디오 설정 (BGM + SFX 이중 트랙)：[references/audio-design-rules.md](audio-design-rules.md)
+- Apple 갤러리 스타일 횡적 참고：[references/apple-gallery-showcase.md](apple-gallery-showcase.md)
+- 소스 HTML (v6 + 오디오 통합 버전)：`www.huasheng.ai/huashu-design-hero/index.html`
