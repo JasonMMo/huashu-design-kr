@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Deck · Multi-file Slide Index</title>
 <!--
-  deck_index.html — 多文件 slide deck 的拼接器
+  deck_index.html — 다중 파일 슬라이드 덱 조합기
 
-  配合「每页一个独立 HTML」架构使用。与单文件 deck_stage.js 对比：
-  · 每页独立作用域（CSS/JS 都隔离），一页出 bug 不影响其他页
-  · 单页可直接在浏览器打开验证，不依赖 JS goTo()
-  · 多 agent 可并行做不同页，merge 时零冲突
-  · 适合 ≥15 页的讲座/课件/长 deck
+  "페이지당 독립 HTML" 아키텍처와 함께 사용합니다. 단일 파일 deck_stage.js 와의 차이점:
+  · 각 페이지 독립 스코프 (CSS/JS 모두 격리) — 한 페이지의 버그가 다른 페이지에 영향을 주지 않음
+  · 단일 페이지를 브라우저에서 직접 열어 검증 가능, JS goTo() 불필요
+  · 여러 에이전트가 각기 다른 페이지를 병렬 작업, 병합 시 충돌 없음
+  · 15페이지 이상의 강의/교재/긴 덱에 적합
 
-  用法：
-    1. 把本文件复制到 deck 根目录，重命名 index.html
-    2. 在同目录建 slides/ 子目录，放每一页独立 HTML
-    3. 编辑下方 MANIFEST 数组，按顺序列出文件名和人类可读标签
-    4. 每张 slide HTML 建议尺寸 1920×1080，自带背景/字体；不要依赖外层 CSS
+  사용법:
+    1. 이 파일을 덱 루트 디렉터리에 복사하고 index.html로 이름 변경
+    2. 같은 디렉터리에 slides/ 하위 디렉터리 생성 후 각 페이지 독립 HTML 파일 배치
+    3. 아래 MANIFEST 배열을 편집하여 파일명과 사람이 읽을 수 있는 레이블을 순서대로 나열
+    4. 각 슬라이드 HTML의 권장 크기는 1920×1080. 자체 배경/폰트 포함, 외부 CSS에 의존하지 않음
 
-  共享资源（如果需要）：
-    · shared/tokens.css  — 跨页 CSS 变量（色板/字号）
-    · shared/chrome.html — 页眉页脚可复用片段
-    · 每页 HTML 自己 <link> 进去即可
+  공유 리소스 (필요한 경우):
+    · shared/tokens.css  — 페이지 간 CSS 변수 (색상/폰트 크기)
+    · shared/chrome.html — 헤더/푸터 재사용 가능 조각
+    · 각 페이지 HTML에서 직접 <link>로 불러오면 됨
 
-  键盘：← / → / Space / PgUp / PgDown / Home / End / 1-9 跳页 / P 打印
+  키보드: ← / → / Space / PgUp / PgDown / Home / End / 1-9 페이지 이동 / P 인쇄
 -->
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<!-- EDIT THIS — deck 所有页按顺序列出                        -->
+<!-- 여기를 편집 — 덱의 모든 페이지를 순서대로 나열           -->
 <!-- ═══════════════════════════════════════════════════════ -->
 <script>
   window.DECK_MANIFEST = [
     { file: "slides/01-cover.html",       label: "Cover" },
     { file: "slides/02-quote.html",       label: "Opening Quote" },
     { file: "slides/03-intro.html",       label: "Self-intro" },
-    // 继续往下加。file 是相对本文件的路径，label 用于计数器
+    // 계속 추가. file은 이 파일 기준 상대 경로, label은 카운터에 표시됨
   ];
 
-  // 固定 canvas 尺寸。每页 HTML 都应该按这个尺寸设计。
+  // 고정 캔버스 크기. 각 페이지 HTML은 이 크기에 맞게 디자인해야 합니다.
   window.DECK_WIDTH = 1920;
   window.DECK_HEIGHT = 1080;
 </script>
@@ -48,7 +48,7 @@
     height: 100%;
     background: #0a0a0a;
     overflow: hidden;
-    font-family: -apple-system, "PingFang SC", sans-serif;
+    font-family: -apple-system, "Apple SD Gothic Neo", sans-serif;
   }
   #stage {
     position: fixed;
@@ -57,7 +57,7 @@
     will-change: transform;
     background: #fff;
     box-shadow: 0 10px 60px rgba(0,0,0,0.4);
-    /* size set by JS from DECK_WIDTH/HEIGHT */
+    /* JS에서 DECK_WIDTH/HEIGHT 기준으로 크기 설정 */
   }
   iframe {
     width: 100%;
@@ -111,13 +111,13 @@
   .nav-zone.right .nav-hint { right: 20px; }
   .nav-zone:hover .nav-hint { opacity: 1; }
 
-  /* Print: one slide per page, no navigation UI */
+  /* 인쇄: 페이지당 슬라이드 한 장, 탐색 UI 없음 */
   @media print {
     @page { size: 1920px 1080px; margin: 0; }
     html, body { background: #fff; overflow: visible; height: auto; }
     #stage { position: static; transform: none !important; box-shadow: none; }
     .counter, .nav-zone { display: none !important; }
-    /* In print mode we render all slides sequentially — see JS */
+    /* 인쇄 모드에서 모든 슬라이드를 순서대로 렌더링 — JS 참고 */
     .print-stack { display: block; }
     .print-stack iframe {
       width: 1920px;
@@ -138,7 +138,7 @@
 <div class="nav-zone right" id="navR"><div class="nav-hint">›</div></div>
 <div class="counter" id="counter">1 / 1</div>
 
-<!-- Print-only stack: populated on beforeprint, stripped on afterprint -->
+<!-- 인쇄 전용 스택: beforeprint 시 채워지고, afterprint 시 비워짐 -->
 <div class="print-stack" id="printStack" style="display:none;"></div>
 
 <script>
@@ -179,7 +179,7 @@
   function next() { show(Math.min(current + 1, deck.length - 1)); }
   function prev() { show(Math.max(current - 1, 0)); }
 
-  // Keyboard
+  // 키보드
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     switch (e.key) {
@@ -204,7 +204,7 @@
     if (m) show(parseInt(m[1], 10) - 1);
   });
 
-  // Initial: hash > localStorage > 0
+  // 초기: 해시 > localStorage > 0
   const hashMatch = location.hash.match(/^#(\d+)$/);
   if (hashMatch) current = Math.min(parseInt(hashMatch[1], 10) - 1, deck.length - 1);
   else try {
@@ -214,7 +214,7 @@
   fit();
   show(current);
 
-  // Print: build a stack of all iframes so browser prints every slide
+  // 인쇄: 브라우저가 모든 슬라이드를 인쇄할 수 있도록 iframe 스택 구성
   window.addEventListener('beforeprint', () => {
     printStack.innerHTML = '';
     deck.forEach(item => {
