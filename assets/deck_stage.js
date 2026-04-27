@@ -1,27 +1,27 @@
 /**
- * <deck-stage> — HTML幻灯片外壳web component
+ * <deck-stage> — HTML 슬라이드 쉘 웹 컴포넌트
  *
- * 提供功能：
- * - 固定尺寸canvas（默认1920×1080）+ auto-scale + letterbox
- * - 键盘导航（←/→/Space/Home/End/Esc）
- * - 左右点击区域导航
- * - slide counter (当前/总数)
- * - localStorage持久化当前slide
- * - Speaker notes postMessage (支持外层渲染)
- * - Hash导航 (#slide-5 跳到第5张)
- * - Print-to-PDF支持 (Cmd+P / Ctrl+P 一页一slide)
- * - 自动给每个slide添加 data-screen-label
+ * 제공 기능:
+ * - 고정 크기 캔버스 (기본값 1920×1080) + 자동 스케일 + 레터박스
+ * - 키보드 탐색 (←/→/Space/Home/End/Esc)
+ * - 좌우 클릭 영역 탐색
+ * - 슬라이드 카운터 (현재/전체)
+ * - localStorage 현재 슬라이드 저장
+ * - Speaker notes postMessage (외부 렌더링 지원)
+ * - 해시 탐색 (#slide-5 로 5번째 슬라이드로 이동)
+ * - PDF 인쇄 지원 (Cmd+P / Ctrl+P, 슬라이드당 한 페이지)
+ * - 각 슬라이드에 data-screen-label 자동 추가
  *
- * 用法：
+ * 사용법:
  *   <deck-stage>
  *     <section>Slide 1</section>
  *     <section>Slide 2</section>
  *   </deck-stage>
  *
- * 自定义尺寸：
+ * 크기 커스터마이즈:
  *   <deck-stage width="1080" height="1920">...</deck-stage>
  *
- * Speaker notes：在<head>加
+ * Speaker notes: <head>에 추가
  *   <script type="application/json" id="speaker-notes">
  *   ["slide 1 notes", "slide 2 notes"]
  *   </script>
@@ -43,12 +43,12 @@
       this._width = parseInt(this.getAttribute('width')) || 1920;
       this._height = parseInt(this.getAttribute('height')) || 1080;
 
-      // Shadow DOM 先渲染（独立于子节点，不受 parser 时机影响）
+      // Shadow DOM 먼저 렌더링 (자식 노드와 독립적으로, 파서 타이밍 영향 없음)
       this._render();
 
-      // 防御：若 script 放在 <head> 里（而非 </deck-stage> 之后），
-      // parser 此刻可能还没处理完子 <section>，querySelectorAll 会返回空。
-      // 延迟到下一个事件循环，确保子节点都已 parse 完毕。
+      // 방어적 처리: script가 <head>에 위치한 경우 (</deck-stage> 이후가 아닌),
+      // 파서가 아직 자식 <section>을 처리하지 않았을 수 있어 querySelectorAll이 빈 배열을 반환.
+      // 다음 이벤트 루프까지 지연하여 자식 노드가 모두 파싱될 때까지 대기.
       const init = () => {
         this._collectSlides();
         this._setupEventListeners();
@@ -58,10 +58,10 @@
       };
 
       if (this.ownerDocument.readyState === 'loading') {
-        // 文档还在 parse，等 DOMContentLoaded 一次搞定所有 section
+        // 문서 파싱 중 — DOMContentLoaded 이후 한 번에 모든 section 수집
         this.ownerDocument.addEventListener('DOMContentLoaded', init, { once: true });
       } else {
-        // 文档已 parse 完（script 在 body 底部或 defer），下一帧收集即可
+        // 문서 파싱 완료 (script가 body 하단 또는 defer) — 다음 프레임에서 수집
         requestAnimationFrame(init);
       }
     }
@@ -75,7 +75,7 @@
             inset: 0;
             background: #000;
             overflow: hidden;
-            font-family: -apple-system, 'SF Pro Text', 'PingFang SC', sans-serif;
+            font-family: -apple-system, 'SF Pro Text', 'Apple SD Gothic Neo', sans-serif;
           }
 
           :host([noscale]) .stage {
