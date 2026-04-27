@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1080">
 <title>AI Memory System Optimization — Takram Style</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -26,7 +26,7 @@
     position: relative;
   }
 
-  /* Background texture */
+  /* 배경 텍스처 */
   .bg-circle {
     position: absolute;
     border-radius: 50%;
@@ -46,7 +46,7 @@
     left: -160px;
   }
 
-  /* Header */
+  /* 헤더 */
   .header {
     position: relative;
     z-index: 1;
@@ -63,7 +63,7 @@
     opacity: 0.8;
   }
   .header-title {
-    font-family: 'Noto Serif SC', serif;
+    font-family: 'Noto Serif KR', serif;
     font-size: 44px;
     font-weight: 500;
     line-height: 1.35;
@@ -80,7 +80,7 @@
     letter-spacing: 0.3px;
   }
 
-  /* Hero Data Circles */
+  /* 히어로 데이터 원형 */
   .hero-section {
     display: flex;
     align-items: center;
@@ -148,7 +148,7 @@
     font-size: 52px;
   }
 
-  /* Organic connector */
+  /* 유기적 연결 */
   .hero-connector {
     position: relative;
     width: 120px;
@@ -156,7 +156,7 @@
     flex-shrink: 0;
   }
 
-  /* Reduction badge — understated Takram style */
+  /* 감소 뱃지 — 절제된 Takram 스타일 */
   .reduction-pill {
     display: inline-flex;
     align-items: center;
@@ -183,14 +183,14 @@
     margin-top: 16px;
   }
 
-  /* Categories Section */
+  /* 카테고리 섹션 */
   .categories-section {
     margin-top: 36px;
     position: relative;
     z-index: 1;
   }
   .section-label {
-    font-family: 'Noto Serif SC', serif;
+    font-family: 'Noto Serif KR', serif;
     font-size: 20px;
     font-weight: 500;
     color: #2D3436;
@@ -222,8 +222,8 @@
   .cat-card-icon {
     margin-bottom: 14px;
   }
-  .cat-card-title-zh {
-    font-family: 'Noto Serif SC', serif;
+  .cat-card-title-ko {
+    font-family: 'Noto Serif KR', serif;
     font-size: 20px;
     font-weight: 600;
     color: #2E2A24;
@@ -250,14 +250,14 @@
     background: rgba(107, 143, 113, 0.04);
   }
 
-  /* Proportion circles */
+  /* 비율 원형 */
   .cat-prop {
     position: absolute;
     top: 20px;
     right: 20px;
   }
 
-  /* Flow Diagram */
+  /* 플로우 다이어그램 */
   .flow-section {
     margin-top: 36px;
     position: relative;
@@ -301,14 +301,14 @@
     text-transform: uppercase;
   }
   .flow-node-text {
-    font-family: 'Noto Serif SC', serif;
+    font-family: 'Noto Serif KR', serif;
     font-size: 13px;
     font-weight: 500;
     color: #2E2A24;
     text-align: center;
   }
 
-  /* Insight */
+  /* 인사이트 */
   .insight-section {
     margin-top: auto;
     position: relative;
@@ -322,7 +322,7 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.03);
   }
   .insight-quote {
-    font-family: 'Noto Serif SC', serif;
+    font-family: 'Noto Serif KR', serif;
     font-size: 20px;
     font-weight: 400;
     color: #2E2A24;
@@ -360,7 +360,7 @@
     color: #8B7355;
   }
 
-  /* Footer */
+  /* 푸터 */
   .footer {
     margin-top: 28px;
     display: flex;
@@ -382,18 +382,18 @@
 <body>
 <div class="container">
 
-  <!-- Background decorations -->
+  <!-- 배경 장식 -->
   <div class="bg-circle bg-circle-1"></div>
   <div class="bg-circle bg-circle-2"></div>
 
-  <!-- Header -->
+  <!-- 헤더 -->
   <div class="header">
     <div class="header-label">Speculative Design / Memory Architecture</div>
-    <div class="header-title">AI记忆系统<br>CLAUDE.md 的断舍离</div>
+    <div class="header-title">AI 메모리 시스템<br>CLAUDE.md의 단사리</div>
     <div class="header-subtitle">Restructuring artificial memory from monolith to modular elegance</div>
   </div>
 
-  <!-- Hero Data Circles -->
+  <!-- 히어로 데이터 원형 -->
   <div class="hero-section">
     <div class="data-circle">
       <div class="data-circle-ring">
@@ -415,7 +415,7 @@
               fill="none" stroke="#6B8F71" stroke-width="1" stroke-dasharray="3,4" opacity="0.5"/>
         <circle cx="110" cy="30" r="3.5" fill="#6B8F71" opacity="0.5"/>
         <circle cx="110" cy="30" r="7" fill="none" stroke="#6B8F71" stroke-width="0.5" opacity="0.2"/>
-        <!-- delta annotation -->
+        <!-- 델타 주석 -->
         <text x="60" y="50" text-anchor="middle" font-family="Inter" font-size="7" fill="#B0AAA0" letter-spacing="0.5">-71 KB</text>
       </svg>
     </div>
@@ -441,9 +441,9 @@
     </div>
   </div>
 
-  <!-- Categories -->
+  <!-- 카테고리 -->
   <div class="categories-section">
-    <div class="section-label"><span class="section-num">01</span>Four Pillars of Memory</div>
+    <div class="section-label"><span class="section-num">01</span>메모리의 네 기둥</div>
     <div class="categories-grid">
       <div class="cat-card highlight">
         <div class="cat-card-icon">
@@ -458,9 +458,9 @@
             <circle cx="14" cy="14" r="12" fill="none" stroke="#A8B5A0" stroke-width="2" stroke-dasharray="75" stroke-dashoffset="56" transform="rotate(-90 14 14)"/>
           </svg>
         </div>
-        <div class="cat-card-title-zh">核心身份</div>
+        <div class="cat-card-title-ko">핵심 정체성</div>
         <div class="cat-card-title-en">Core Identity</div>
-        <div class="cat-card-desc">Immutable facts and fundamental traits that define who you are</div>
+        <div class="cat-card-desc">내가 누구인지 정의하는 불변적인 사실과 근본적인 특성</div>
       </div>
       <div class="cat-card">
         <div class="cat-card-icon">
@@ -477,9 +477,9 @@
             <circle cx="14" cy="14" r="12" fill="none" stroke="#8B7355" stroke-width="2" stroke-dasharray="75" stroke-dashoffset="45" transform="rotate(-90 14 14)"/>
           </svg>
         </div>
-        <div class="cat-card-title-zh">偏好设置</div>
+        <div class="cat-card-title-ko">환경 설정</div>
         <div class="cat-card-title-en">Preferences</div>
-        <div class="cat-card-desc">Style, tools, habits — accumulated over time through sessions</div>
+        <div class="cat-card-desc">스타일, 도구, 습관 — 세션을 거치며 시간이 지남에 따라 축적됨</div>
       </div>
       <div class="cat-card">
         <div class="cat-card-icon">
@@ -496,9 +496,9 @@
             <circle cx="14" cy="14" r="12" fill="none" stroke="#8B7355" stroke-width="2" stroke-dasharray="75" stroke-dashoffset="37" transform="rotate(-90 14 14)"/>
           </svg>
         </div>
-        <div class="cat-card-title-zh">项目状态</div>
+        <div class="cat-card-title-ko">프로젝트 상태</div>
         <div class="cat-card-title-en">Project State</div>
-        <div class="cat-card-desc">Current tasks, deadlines, priorities — always evolving context</div>
+        <div class="cat-card-desc">현재 작업, 마감일, 우선순위 — 항상 변화하는 컨텍스트</div>
       </div>
       <div class="cat-card">
         <div class="cat-card-icon">
@@ -514,32 +514,32 @@
             <circle cx="14" cy="14" r="12" fill="none" stroke="#8B7355" stroke-width="2" stroke-dasharray="75" stroke-dashoffset="60" transform="rotate(-90 14 14)"/>
           </svg>
         </div>
-        <div class="cat-card-title-zh">日志流水</div>
+        <div class="cat-card-title-ko">일지 기록</div>
         <div class="cat-card-title-en">Daily Logs</div>
-        <div class="cat-card-desc">Session records — never auto-loaded, retrieved on demand only</div>
+        <div class="cat-card-desc">세션 기록 — 자동 로드 없음, 필요 시에만 검색</div>
       </div>
     </div>
   </div>
 
-  <!-- Flow Diagram -->
+  <!-- 플로우 다이어그램 -->
   <div class="flow-section">
-    <div class="section-label"><span class="section-num">02</span>System Flow</div>
+    <div class="section-label"><span class="section-num">02</span>시스템 플로우</div>
     <div class="flow-diagram">
-      <!-- SVG organic curves connecting nodes — art-piece treatment -->
+      <!-- SVG 유기적 곡선으로 노드 연결 — 아트피스 처리 -->
       <svg width="920" height="260" viewBox="0 0 920 260" style="position: absolute; top: 0; left: 0;">
-        <!-- Background guide line (very subtle) -->
+        <!-- 배경 가이드 라인 (매우 미묘) -->
         <line x1="50" y1="130" x2="870" y2="130" stroke="#E8E4DC" stroke-width="0.3" stroke-dasharray="2,8" opacity="0.4"/>
 
-        <!-- Curve from Input to Route -->
+        <!-- 입력에서 라우트로의 곡선 -->
         <path d="M 116,50 C 165,50 195,120 246,120" fill="none" stroke="#D4CFC6" stroke-width="1"/>
-        <!-- Curve from Route to Load -->
+        <!-- 라우트에서 로드로의 곡선 -->
         <path d="M 316,120 C 370,120 380,50 460,50" fill="none" stroke="#D4CFC6" stroke-width="1"/>
-        <!-- Curve from Load to Execute (highlighted — key transition) -->
+        <!-- 로드에서 실행으로의 곡선 (강조 — 핵심 전환) -->
         <path d="M 530,50 C 585,50 600,160 660,160" fill="none" stroke="#6B8F71" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.6"/>
-        <!-- Curve from Execute to Update -->
+        <!-- 실행에서 업데이트로의 곡선 -->
         <path d="M 730,160 C 785,160 800,80 830,80" fill="none" stroke="#D4CFC6" stroke-width="1"/>
 
-        <!-- Connection dots — varying size for depth -->
+        <!-- 연결 점 — 깊이감을 위한 크기 변화 -->
         <circle cx="116" cy="50" r="2.5" fill="#D4CFC6"/>
         <circle cx="246" cy="120" r="2.5" fill="#D4CFC6"/>
         <circle cx="316" cy="120" r="2.5" fill="#D4CFC6"/>
@@ -549,14 +549,14 @@
         <circle cx="730" cy="160" r="2.5" fill="#D4CFC6"/>
         <circle cx="830" cy="80" r="2.5" fill="#D4CFC6"/>
 
-        <!-- Annotation: step numbers along curve -->
+        <!-- 곡선을 따라 단계 번호 주석 -->
         <text x="170" y="75" font-family="Inter" font-size="7" fill="#C8C2B8" letter-spacing="0.5">step 1</text>
         <text x="350" y="100" font-family="Inter" font-size="7" fill="#C8C2B8" letter-spacing="0.5">step 2</text>
         <text x="565" y="95" font-family="Inter" font-size="7" fill="#6B8F71" opacity="0.5" letter-spacing="0.5">step 3</text>
         <text x="770" y="130" font-family="Inter" font-size="7" fill="#C8C2B8" letter-spacing="0.5">step 4</text>
       </svg>
 
-      <!-- Node 1: User Input -->
+      <!-- 노드 1: 사용자 입력 -->
       <div class="flow-node" style="left: 44px; top: 8px;">
         <div class="flow-node-circle">
           <svg width="24" height="24" viewBox="0 0 24 24">
@@ -565,10 +565,10 @@
           </svg>
         </div>
         <span class="flow-node-label">Input</span>
-        <span class="flow-node-text">User</span>
+        <span class="flow-node-text">사용자</span>
       </div>
 
-      <!-- Node 2: Route -->
+      <!-- 노드 2: 라우트 -->
       <div class="flow-node" style="left: 210px; top: 78px;">
         <div class="flow-node-circle">
           <svg width="24" height="24" viewBox="0 0 24 24">
@@ -576,10 +576,10 @@
           </svg>
         </div>
         <span class="flow-node-label">Route</span>
-        <span class="flow-node-text">Workspace</span>
+        <span class="flow-node-text">워크스페이스</span>
       </div>
 
-      <!-- Node 3: Load Memory (active) -->
+      <!-- 노드 3: 메모리 로드 (활성) -->
       <div class="flow-node" style="left: 420px; top: 8px;">
         <div class="flow-node-circle active">
           <svg width="24" height="24" viewBox="0 0 24 24">
@@ -590,10 +590,10 @@
           </svg>
         </div>
         <span class="flow-node-label">Load</span>
-        <span class="flow-node-text">Memory</span>
+        <span class="flow-node-text">메모리</span>
       </div>
 
-      <!-- Node 4: Execute -->
+      <!-- 노드 4: 실행 -->
       <div class="flow-node" style="left: 624px; top: 118px;">
         <div class="flow-node-circle">
           <svg width="24" height="24" viewBox="0 0 24 24">
@@ -601,10 +601,10 @@
           </svg>
         </div>
         <span class="flow-node-label">Execute</span>
-        <span class="flow-node-text">Task</span>
+        <span class="flow-node-text">작업</span>
       </div>
 
-      <!-- Node 5: Update -->
+      <!-- 노드 5: 업데이트 -->
       <div class="flow-node" style="left: 800px; top: 40px;">
         <div class="flow-node-circle">
           <svg width="24" height="24" viewBox="0 0 24 24">
@@ -614,12 +614,12 @@
           </svg>
         </div>
         <span class="flow-node-label">Update</span>
-        <span class="flow-node-text">Write</span>
+        <span class="flow-node-text">저장</span>
       </div>
     </div>
   </div>
 
-  <!-- Insight -->
+  <!-- 인사이트 -->
   <div class="insight-section">
     <div class="insight-card">
       <div class="insight-quote">
@@ -634,7 +634,7 @@
               <circle cx="12" cy="2" r="2" fill="#A8B5A0" opacity="0.4"/>
             </svg>
           </div>
-          <span class="result-text">Faster context loading</span>
+          <span class="result-text">컨텍스트 로딩 속도 향상</span>
         </div>
         <div class="result-item">
           <div class="result-leaf">
@@ -643,7 +643,7 @@
               <circle cx="12" cy="2" r="2" fill="#A8B5A0" opacity="0.4"/>
             </svg>
           </div>
-          <span class="result-text">More relevant responses</span>
+          <span class="result-text">더 관련성 높은 응답</span>
         </div>
         <div class="result-item">
           <div class="result-leaf">
@@ -652,13 +652,13 @@
               <circle cx="12" cy="2" r="2" fill="#A8B5A0" opacity="0.4"/>
             </svg>
           </div>
-          <span class="result-text">Zero information loss</span>
+          <span class="result-text">정보 손실 없음</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- 푸터 -->
   <div class="footer">
     <span class="footer-text">Takram Style</span>
     <span class="footer-text">CLAUDE.md Optimization</span>
