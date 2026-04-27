@@ -1,162 +1,162 @@
-# 可编辑 PPTX 导出：HTML 硬约束 + 尺寸决策 + 常见错误
+# 편집 가능한 PPTX 내보내기：HTML 하드 제약 + 크기 결정 + 자주 발생하는 오류
 
-本文档讲的是**用 `scripts/html2pptx.js` + `pptxgenjs` 把 HTML 逐元素翻译成真·可编辑 PowerPoint 文本框**的路径，也是 `export_deck_pptx.mjs` 唯一支持的路径。
+이 문서는 **`scripts/html2pptx.js` + `pptxgenjs`를 사용하여 HTML을 요소 단위로 진짜 편집 가능한 PowerPoint 텍스트 박스로 변환하는** 경로를 설명합니다. 이것이 `export_deck_pptx.mjs`가 지원하는 유일한 경로입니다.
 
-> **核心前提**：要走这条路，HTML 必须从第一行就按下面 4 条约束写。**不是写完再转**——事后补救会触发 2-3 小时返工（2026-04-20 期权私董会项目实测踩坑）。
+> **핵심 전제**：이 경로를 사용하려면 HTML을 첫 번째 줄부터 아래의 4가지 제약에 맞춰 작성해야 합니다. **완성 후에 변환하는 것이 아닙니다** — 사후 수정은 2-3시간의 재작업을 초래합니다 (2026-04-20 프로젝트 실전 경험).
 >
-> 视觉自由度优先的场景（动画 / web component / CSS 渐变 / 复杂 SVG）请改走 PDF 路径（`export_deck_pdf.mjs` / `export_deck_stage_pdf.mjs`），**不要**指望 pptx 导出能兼得视觉保真和可编辑——这是 PPTX 文件格式本身的物理约束（见文末「为什么 4 条约束不是 Bug 而是物理约束」）。
+> 시각적 자유도를 우선시하는 장면 (애니메이션 / web component / CSS 그라디언트 / 복잡한 SVG)은 PDF 경로 (`export_deck_pdf.mjs` / `export_deck_stage_pdf.mjs`)를 사용하세요. **PPTX 내보내기가 시각적 충실도와 편집 가능성을 동시에 만족시킬 것이라고 기대하지 마세요** — 이것은 PPTX 파일 형식 자체의 물리적 제약입니다 (하단 「왜 4가지 제약이 버그가 아닌 물리적 제약인가」 참조).
 
 ---
 
-## 画布尺寸：用 960×540pt（LAYOUT_WIDE）
+## 캔버스 크기：960×540pt (LAYOUT_WIDE) 사용
 
-PPTX 单位是 **inch**（物理尺寸），不是 px。决策原则：body 的 computedStyle 尺寸要**匹配 presentation layout 的 inch 尺寸**（±0.1"，由 `html2pptx.js` 的 `validateDimensions` 强制检查）。
+PPTX의 단위는 **inch** (물리적 크기)이지 px가 아닙니다. 결정 원칙：body의 computedStyle 크기가 **presentation layout의 inch 크기와 일치**해야 합니다 (±0.1", `html2pptx.js`의 `validateDimensions`가 강제 검사).
 
-### 3 个候选尺寸对比
+### 3가지 후보 크기 비교
 
-| HTML body | 物理尺寸 | 对应 PPT layout | 何时选 |
+| HTML body | 물리적 크기 | 대응 PPT 레이아웃 | 선택 시점 |
 |---|---|---|---|
-| **`960pt × 540pt`** | **13.333″ × 7.5″** | **pptxgenjs `LAYOUT_WIDE`** | ✅ **默认推荐**（现代 PowerPoint 16:9 标配） |
-| `720pt × 405pt` | 10″ × 5.625″ | 自定义 | 仅当用户指定「老版 PowerPoint Widescreen」模板时 |
-| `1920px × 1080px` | 20″ × 11.25″ | 自定义 | ❌ 非标尺寸，投影后字体显得异常小 |
+| **`960pt × 540pt`** | **13.333″ × 7.5″** | **pptxgenjs `LAYOUT_WIDE`** | ✅ **기본 권장** (현대 PowerPoint 16:9 표준) |
+| `720pt × 405pt` | 10″ × 5.625″ | 사용자 정의 | 사용자가 「구버전 PowerPoint Widescreen」 템플릿을 명시한 경우에만 |
+| `1920px × 1080px` | 20″ × 11.25″ | 사용자 정의 | ❌ 비표준 크기, 프로젝터 투사 후 폰트가 비정상적으로 작아 보임 |
 
-**别把 HTML 尺寸当分辨率想。** PPTX 是矢量文档，body 尺寸决定的是**物理尺寸**不是清晰度。超大 body（20″×11.25″）不会让文字更清晰——只会让字号 pt 相对画布变小，投影/打印时反而更难看。
+**HTML 크기를 해상도로 생각하지 마세요.** PPTX는 벡터 문서이며, body 크기는 **물리적 크기**를 결정하지 선명도를 결정하지 않습니다. body가 크다고 (20″×11.25″) 텍스트가 더 선명해지지 않습니다 — 오히려 pt 폰트 크기가 캔버스 대비 상대적으로 작아져, 프로젝터 투사 / 인쇄 시 더 보기 어려워집니다.
 
-### body 写法三选一（等价）
+### body 작성 방법 세 가지 (모두 동일)
 
 ```css
-body { width: 960pt;  height: 540pt; }    /* 最清晰，推荐 */
-body { width: 1280px; height: 720px; }    /* 等价，px 习惯 */
-body { width: 13.333in; height: 7.5in; }  /* 等价，英寸直觉 */
+body { width: 960pt;  height: 540pt; }    /* 가장 명확, 권장 */
+body { width: 1280px; height: 720px; }    /* 동일, px 선호 시 */
+body { width: 13.333in; height: 7.5in; }  /* 동일, inch 직관 */
 ```
 
-配套的 pptxgenjs 代码：
+대응하는 pptxgenjs 코드：
 
 ```js
 const pptx = new pptxgen();
-pptx.layout = 'LAYOUT_WIDE';  // 13.333 × 7.5 inch, 无需自定义
+pptx.layout = 'LAYOUT_WIDE';  // 13.333 × 7.5 inch, 별도 정의 불필요
 ```
 
 ---
 
-## 4 条硬约束（违反会直接报错）
+## 4가지 하드 제약 (위반 시 즉시 오류 발생)
 
-`html2pptx.js` 把 HTML 的 DOM 逐元素翻译成 PowerPoint 对象。PowerPoint 的格式约束投射到 HTML 上 = 下面 4 条规则。
+`html2pptx.js`는 HTML DOM을 요소 단위로 PowerPoint 객체로 변환합니다. PowerPoint의 형식 제약이 HTML에 투영된 것이 아래 4가지 규칙입니다.
 
-### 规则 1：DIV 里不能直接写文字 — 必须用 `<p>` 或 `<h1>`-`<h6>` 包裹
+### 규칙 1：DIV 안에 텍스트를 직접 작성 금지 — 반드시 `<p>` 또는 `<h1>`-`<h6>`으로 감싸야 합니다
 
 ```html
-<!-- ❌ 错误：文字直接在 div 里 -->
-<div class="title">Q3营收增长23%</div>
+<!-- ❌ 잘못된 방법：텍스트가 div 안에 직접 있음 -->
+<div class="title">Q3 매출 23% 성장</div>
 
-<!-- ✅ 正确：文字在 <p> 或 <h1>-<h6> 里 -->
-<div class="title"><h1>Q3营收增长23%</h1></div>
-<div class="body"><p>新用户是主要驱动力</p></div>
+<!-- ✅ 올바른 방법：텍스트가 <p> 또는 <h1>-<h6> 안에 있음 -->
+<div class="title"><h1>Q3 매출 23% 성장</h1></div>
+<div class="body"><p>신규 사용자가 주요 동인입니다</p></div>
 ```
 
-**为什么**：PowerPoint 文本必须存在 text frame 里，text frame 对应 HTML 的段落级元素（p/h*/li）。裸 `<div>` 在 PPTX 里没有对应的文本容器。
+**이유**：PowerPoint 텍스트는 반드시 text frame 안에 있어야 하며, text frame은 HTML의 단락 수준 요소(p/h*/li)에 대응합니다. 단순 `<div>`는 PPTX에서 대응하는 텍스트 컨테이너가 없습니다.
 
-**也不能用 `<span>` 承载主文字**——span 是行内元素，没法独立对齐成文本框。span 只能**夹在 p/h\* 里**做局部样式（加粗、换色）。
+**`<span>`도 주 텍스트를 담을 수 없습니다** — span은 인라인 요소로, 독립적인 텍스트 박스로 정렬될 수 없습니다. span은 p/h\* **안에서** 부분 스타일 (굵기, 색상 변경)용으로만 사용하세요.
 
-### 规则 2：不支持 CSS 渐变 — 只能用纯色
+### 규칙 2：CSS 그라디언트 지원 안 됨 — 단색만 사용 가능
 
 ```css
-/* ❌ 错误 */
+/* ❌ 잘못된 방법 */
 background: linear-gradient(to right, #FF6B6B, #4ECDC4);
 
-/* ✅ 正确：纯色 */
+/* ✅ 올바른 방법：단색 */
 background: #FF6B6B;
 
-/* ✅ 如果必须多色条纹，用 flex 子元素各自纯色 */
+/* ✅ 여러 색 스트라이프가 꼭 필요하다면, flex 자식 요소로 각각 단색 처리 */
 .stripe-bar { display: flex; }
 .stripe-bar div { flex: 1; }
 .red   { background: #FF6B6B; }
 .teal  { background: #4ECDC4; }
 ```
 
-**为什么**：PowerPoint 的 shape fill 只支持 solid/gradient-fill 两种，但 pptxgenjs 的 `fill: { color: ... }` 只映射 solid。渐变走 PowerPoint 原生 gradient 需要另写结构，目前工具链不支持。
+**이유**：PowerPoint의 shape fill은 solid / gradient-fill 두 가지를 지원하지만, pptxgenjs의 `fill: { color: ... }`는 solid만 매핑됩니다. 그라디언트를 PowerPoint 네이티브 gradient로 사용하려면 별도 구조가 필요하며, 현재 툴체인은 이를 지원하지 않습니다.
 
-### 规则 3：背景/边框/阴影只能在 DIV 上，不能在文字标签上
+### 규칙 3：배경 / 테두리 / 그림자는 DIV에만 지정 가능, 텍스트 태그에는 불가
 
 ```html
-<!-- ❌ 错误：<p> 有背景色 -->
-<p style="background: #FFD700; border-radius: 4px;">重点内容</p>
+<!-- ❌ 잘못된 방법：<p>에 배경색이 있음 -->
+<p style="background: #FFD700; border-radius: 4px;">강조 내용</p>
 
-<!-- ✅ 正确：外层 div 承载背景/边框，<p> 只负责文字 -->
+<!-- ✅ 올바른 방법：외부 div가 배경/테두리를 담당, <p>는 텍스트만 -->
 <div style="background: #FFD700; border-radius: 4px; padding: 8pt 12pt;">
-  <p>重点内容</p>
+  <p>강조 내용</p>
 </div>
 ```
 
-**为什么**：PowerPoint 里 shape（方块/圆角矩形）和 text frame 是两个对象。HTML 的 `<p>` 只翻译成 text frame，背景/边框/阴影属于 shape——必须在**包裹 text 的 div** 上写。
+**이유**：PowerPoint에서 shape (사각형 / 둥근 직사각형)과 text frame은 두 개의 별도 객체입니다. HTML의 `<p>`는 text frame으로만 변환되며, 배경 / 테두리 / 그림자는 shape에 해당하므로 **텍스트를 감싸는 div**에 작성해야 합니다.
 
-### 规则 4：DIV 不能用 `background-image` — 用 `<img>` 标签
+### 규칙 4：DIV에 `background-image` 사용 금지 — `<img>` 태그를 사용하세요
 
 ```html
-<!-- ❌ 错误 -->
+<!-- ❌ 잘못된 방법 -->
 <div style="background-image: url('chart.png')"></div>
 
-<!-- ✅ 正确 -->
+<!-- ✅ 올바른 방법 -->
 <img src="chart.png" style="position: absolute; left: 50%; top: 20%; width: 300pt; height: 200pt;" />
 ```
 
-**为什么**：`html2pptx.js` 只从 `<img>` 元素提取图片路径，不解析 CSS 的 `background-image` URL。
+**이유**：`html2pptx.js`는 `<img>` 요소에서만 이미지 경로를 추출하며, CSS의 `background-image` URL은 파싱하지 않습니다.
 
 ---
 
-## Path A HTML 模板骨架
+## Path A HTML 템플릿 골격
 
-每张 slide 一个独立 HTML 文件，彼此作用域隔离（避开单文件 deck 的 CSS 污染）。
+슬라이드마다 독립적인 HTML 파일 하나 (단일 파일 덱의 CSS 오염 방지를 위해 서로 스코프 격리).
 
 ```html
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    width: 960pt; height: 540pt;           /* ⚠️ 匹配 LAYOUT_WIDE */
-    font-family: system-ui, -apple-system, "PingFang SC", sans-serif;
-    background: #FEFEF9;                    /* 纯色，不能渐变 */
+    width: 960pt; height: 540pt;           /* ⚠️ LAYOUT_WIDE에 맞춤 */
+    font-family: system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif;
+    background: #FEFEF9;                    /* 단색, 그라디언트 불가 */
     overflow: hidden;
   }
-  /* DIV 负责布局/背景/边框 */
+  /* DIV는 레이아웃 / 배경 / 테두리 담당 */
   .card {
     position: absolute;
-    background: #1A4A8A;                    /* 背景在 DIV 上 */
+    background: #1A4A8A;                    /* 배경은 DIV에 */
     border-radius: 4pt;
     padding: 12pt 16pt;
   }
-  /* 文字标签只负责字体样式，不加背景/边框 */
+  /* 텍스트 태그는 폰트 스타일만 담당, 배경/테두리 없음 */
   .card h2 { font-size: 24pt; color: #FFFFFF; font-weight: 700; }
   .card p  { font-size: 14pt; color: rgba(255,255,255,0.85); }
 </style>
 </head>
 <body>
 
-  <!-- 标题区：外层 div 定位，内层文字标签 -->
+  <!-- 제목 영역：외부 div로 위치 지정, 내부 텍스트 태그 -->
   <div style="position: absolute; top: 40pt; left: 60pt; right: 60pt;">
-    <h1 style="font-size: 36pt; color: #1A1A1A; font-weight: 700;">标题用断言句，不是主题词</h1>
-    <p style="font-size: 16pt; color: #555555; margin-top: 10pt;">副标题补充说明</p>
+    <h1 style="font-size: 36pt; color: #1A1A1A; font-weight: 700;">제목은 단언문으로, 주제어가 아니라</h1>
+    <p style="font-size: 16pt; color: #555555; margin-top: 10pt;">부제목 보충 설명</p>
   </div>
 
-  <!-- 内容卡片：div 负责背景，h2/p 负责文字 -->
+  <!-- 내용 카드：div가 배경 담당, h2/p가 텍스트 담당 -->
   <div class="card" style="top: 130pt; left: 60pt; width: 240pt; height: 160pt;">
-    <h2>要点一</h2>
-    <p>简短说明文字</p>
+    <h2>핵심 포인트 1</h2>
+    <p>간결한 설명 텍스트</p>
   </div>
 
-  <!-- 列表：使用 ul/li，不用手动 • 符号 -->
+  <!-- 목록：ul/li 사용, 수동 • 기호 사용 금지 -->
   <div style="position: absolute; top: 320pt; left: 60pt; width: 540pt;">
     <ul style="font-size: 16pt; color: #1A1A1A; padding-left: 24pt; list-style: disc;">
-      <li>第一条要点</li>
-      <li>第二条要点</li>
-      <li>第三条要点</li>
+      <li>첫 번째 포인트</li>
+      <li>두 번째 포인트</li>
+      <li>세 번째 포인트</li>
     </ul>
   </div>
 
-  <!-- 插图：用 <img> 标签，不用 background-image -->
+  <!-- 이미지：<img> 태그 사용, background-image 금지 -->
   <img src="illustration.png" style="position: absolute; right: 60pt; top: 110pt; width: 320pt; height: 240pt;" />
 
 </body>
@@ -165,44 +165,44 @@ background: #FF6B6B;
 
 ---
 
-## 常见错误速查
+## 자주 발생하는 오류 빠른 참조
 
-| 错误信息 | 原因 | 修复方法 |
+| 오류 메시지 | 원인 | 수정 방법 |
 |---------|------|---------|
-| `DIV element contains unwrapped text "XXX"` | div 里有裸文字 | 把文字包进 `<p>` 或 `<h1>`-`<h6>` |
-| `CSS gradients are not supported` | 用了 linear/radial-gradient | 改为纯色，或用 flex 子元素分段 |
-| `Text element <p> has background` | `<p>` 标签加了背景色 | 外套 `<div>` 承载背景，`<p>` 只写文字 |
-| `Background images on DIV elements are not supported` | div 用了 background-image | 改为 `<img>` 标签 |
-| `HTML content overflows body by Xpt vertically` | 内容超出 540pt | 减少内容或缩小字号，或 `overflow: hidden` 截断 |
-| `HTML dimensions don't match presentation layout` | body 尺寸和 pres layout 对不上 | body 用 `960pt × 540pt` 配 `LAYOUT_WIDE`；或 defineLayout 自定义尺寸 |
-| `Text box "XXX" ends too close to bottom edge` | 大字号 `<p>` 距离 body 底边 < 0.5 inch | 往上挪，留足下边距；PPT 底部本身就会被遮住一部分 |
+| `DIV element contains unwrapped text "XXX"` | div 안에 직접 텍스트가 있음 | 텍스트를 `<p>` 또는 `<h1>`-`<h6>`으로 감싸세요 |
+| `CSS gradients are not supported` | linear/radial-gradient 사용 | 단색으로 바꾸거나, flex 자식 요소로 분할 처리 |
+| `Text element <p> has background` | `<p>` 태그에 배경색이 있음 | 외부에 `<div>` 를 감싸 배경을 담당하게 하고, `<p>`는 텍스트만 작성 |
+| `Background images on DIV elements are not supported` | div에 background-image 사용 | `<img>` 태그로 변경 |
+| `HTML content overflows body by Xpt vertically` | 콘텐츠가 540pt를 초과 | 콘텐츠 줄이기 또는 폰트 크기 축소, 또는 `overflow: hidden`으로 잘라내기 |
+| `HTML dimensions don't match presentation layout` | body 크기와 presentation 레이아웃 불일치 | body를 `960pt × 540pt`로 설정하고 `LAYOUT_WIDE` 사용; 또는 defineLayout으로 커스텀 크기 정의 |
+| `Text box "XXX" ends too close to bottom edge` | 큰 폰트의 `<p>`가 body 하단 경계에서 < 0.5 inch 이내 | 위로 이동시키고 충분한 하단 여백 확보; PPT 하단은 원래 일부가 가려질 수 있음 |
 
 ---
 
-## 基本工作流（3 步出 PPTX）
+## 기본 워크플로 (3단계로 PPTX 출력)
 
-### Step 1：按约束写每页独立 HTML
+### Step 1：제약에 맞게 페이지별 독립 HTML 작성
 
 ```
-我的Deck/
+내 덱/
 ├── slides/
-│   ├── 01-cover.html    # 每个文件都是完整 960×540pt HTML
+│   ├── 01-cover.html    # 각 파일이 완전한 960×540pt HTML
 │   ├── 02-agenda.html
 │   └── ...
-└── illustration/        # 所有 <img> 引用的图片
+└── illustration/        # 모든 <img>가 참조하는 이미지
     ├── chart1.png
     └── ...
 ```
 
-### Step 2：写 build.js 调用 `html2pptx.js`
+### Step 2：`html2pptx.js`를 호출하는 build.js 작성
 
 ```js
 const pptxgen = require('pptxgenjs');
-const html2pptx = require('../scripts/html2pptx.js');  // 本 skill 脚本
+const html2pptx = require('../scripts/html2pptx.js');  // 본 스킬 스크립트
 
 (async () => {
   const pres = new pptxgen();
-  pres.layout = 'LAYOUT_WIDE';  // 13.333 × 7.5 inch，匹配 HTML 的 960×540pt
+  pres.layout = 'LAYOUT_WIDE';  // 13.333 × 7.5 inch, HTML의 960×540pt에 대응
 
   const slides = ['01-cover.html', '02-agenda.html', '03-content.html'];
   for (const file of slides) {
@@ -213,89 +213,89 @@ const html2pptx = require('../scripts/html2pptx.js');  // 本 skill 脚本
 })();
 ```
 
-### Step 3：打开检查
+### Step 3：열어서 확인
 
-- PowerPoint/Keynote 打开导出 PPTX
-- 双击任意文字应能直接编辑（如果是图片说明第 1 条违反了）
-- 验证 overflow：每页应该在 body 范围内，没有被截
+- PowerPoint / Keynote로 내보낸 PPTX 열기
+- 텍스트를 더블 클릭하면 직접 편집 가능해야 합니다 (이미지로 나타난다면 규칙 1 위반)
+- overflow 검증：각 페이지가 body 범위 안에 있고, 잘려나간 것이 없는지 확인
 
 ---
 
-## 这条路径 vs 其他选项（什么时候选什么）
+## 이 경로 vs 다른 옵션 (언제 무엇을 선택할까)
 
-| 需求 | 选什么 |
+| 필요 사항 | 선택 |
 |------|------|
-| 同事会改 PPTX 里的文字 / 发给非技术人员继续编辑 | **本文路径**（editable，需从头按 4 条约束写 HTML） |
-| 只是演讲用 / 发存档，不再改 | `export_deck_pdf.mjs`（多文件）或 `export_deck_stage_pdf.mjs`（单文件 deck-stage），出矢量 PDF |
-| 视觉自由度优先（动画、web component、CSS 渐变、复杂 SVG），接受不可编辑 | **PDF**（同上）——PDF 既保真又跨平台，比「图片 PPTX」更合适 |
+| 동료가 PPTX의 텍스트를 수정할 예정 / 비기술 직군에게 전달하여 계속 편집 | **본 문서 경로** (편집 가능, HTML을 처음부터 4가지 제약에 맞게 작성 필요) |
+| 발표용 / 보관용으로만 사용, 이후 수정 없음 | `export_deck_pdf.mjs` (다중 파일) 또는 `export_deck_stage_pdf.mjs` (단일 파일 deck-stage), 벡터 PDF 출력 |
+| 시각적 자유도 우선 (애니메이션, web component, CSS 그라디언트, 복잡한 SVG), 편집 불가 수용 | **PDF** (동일) — PDF는 시각적 충실도와 크로스플랫폼 모두 만족하며, 「이미지 PPTX」보다 적합 |
 
-**绝不要在视觉自由写好的 HTML 上硬跑 html2pptx**——实测视觉驱动的 HTML pass 率 < 30%，剩下的逐页改造比重写还慢。这种场景应该出 PDF，不是硬挤 PPTX。
+**이미 시각적으로 완성된 HTML에 html2pptx를 무리하게 적용하지 마세요** — 실전 테스트 결과 시각 중심 HTML의 통과율이 30% 미만이며, 나머지 페이지의 수정은 처음부터 다시 쓰는 것보다 더 느립니다. 이런 경우는 PDF를 출력해야 하며, PPTX를 강제 출력해서는 안 됩니다.
 
 ---
 
-## Fallback：已有视觉稿但用户坚持要 editable PPTX
+## Fallback：이미 시각 시안이 있지만 사용자가 편집 가능한 PPTX를 고집하는 경우
 
-偶尔会遇到这个场景：你/用户已经写好一份视觉驱动的 HTML（渐变、web component、复杂 SVG 都用上了），本来出 PDF 最合适，但用户明确说「不行，必须是可编辑的 PPTX」。
+이런 상황이 간혹 발생합니다：이미 시각 중심의 HTML (그라디언트, web component, 복잡한 SVG 모두 사용)이 완성되어 PDF 출력이 가장 적합하지만, 사용자가 「편집 가능한 PPTX」여야 한다고 명확히 요구하는 경우입니다.
 
-**不要硬跑 `html2pptx` 期待它 pass**——实测视觉驱动 HTML 在 html2pptx 上 pass 率 <30%，剩下 70% 会报错或走样。正确的 fallback 是：
+**`html2pptx`를 무리하게 실행하고 통과를 기대하지 마세요** — 실전 테스트에서 시각 중심 HTML의 html2pptx 통과율은 30% 미만이며, 나머지 70%는 오류 또는 레이아웃 망가짐이 발생합니다. 올바른 fallback은 다음과 같습니다：
 
-### Step 1 · 先告知局限性（透明沟通）
+### Step 1 · 먼저 한계를 알리기 (투명한 소통)
 
-一句话跟用户说清三件事：
+한 문장으로 세 가지를 명확히 전달하세요：
 
-> 「你现在的 HTML 用了 [具体列出：渐变 / web component / 复杂 SVG / ...]，直接转 editable PPTX 会 fail。我有两个方案：
-> - A. **出 PDF**（推荐）——视觉 100% 保留，接收方能看能印但不能改文字
-> - B. **以视觉稿为蓝本，重写一版 editable HTML**（保留色彩/布局/文案的设计决策，但按 4 条硬约束重新组织 HTML 结构，**牺牲**渐变、web component、复杂 SVG 等视觉能力）→ 再导出 editable PPTX
+> 「현재 HTML에는 [구체적으로 나열：그라디언트 / web component / 복잡한 SVG / ...]가 포함되어 있어, 직접 편집 가능한 PPTX로 변환하면 실패합니다. 두 가지 방안이 있습니다：
+> - A. **PDF 출력** (권장) — 시각을 100% 보존하며, 수신자가 열람과 인쇄는 가능하지만 텍스트 수정은 불가
+> - B. **시각 시안을 기반으로 편집 가능한 HTML 재작성** (색상/레이아웃/문안의 디자인 의사결정은 유지하되, 4가지 하드 제약에 맞게 HTML 구조를 재조직, **그라디언트, web component, 복잡한 SVG 등의 시각 능력은 포기**) → 편집 가능한 PPTX 출력
 >
-> 你选哪个？」
+> 어느 쪽을 선택하시겠습니까?」
 
-不要把 B 方案说得云淡风轻——明确告知**会丢失什么**。让用户做取舍。
+B 방안을 가볍게 설명하지 마세요 — **무엇을 포기하게 되는지** 명확히 알려주세요. 사용자가 결정하도록 하세요.
 
-### Step 2 · 如果用户选 B：AI 主动改写，不要求用户自己写
+### Step 2 · 사용자가 B를 선택한 경우：AI가 직접 재작성, 사용자에게 직접 작성하도록 하지 않음
 
-这里的 doctrine 是：**用户给的是设计意图，你负责翻译成合规实现**。不是让用户去学 4 条硬约束然后自己重写。
+여기서의 원칙은：**사용자가 제공하는 것은 디자인 의도이며, 여러분이 적합한 구현으로 번역하는 책임이 있습니다**. 사용자에게 4가지 하드 제약을 학습시키고 스스로 재작성하도록 하지 마세요.
 
-改写时的遵循原则：
-- **保留**：色彩系统（主色/辅色/中性色）、信息层级（标题/副标题/正文/注解）、核心文案、layout 骨架（上中下 / 左右分栏 / 网格）、页面节奏
-- **降级**：CSS 渐变 → 纯色或 flex 分段、web component → 段落级 HTML、复杂 SVG → 简化的 `<img>` 或纯色几何、阴影 → 删除或降为极弱、自定义字体 → 向系统字体靠齐
-- **重写**：裸文字 → 包进 `<p>` / `<h*>`、`background-image` → `<img>` 标签、`<p>` 上的背景边框 → 外层 div 承载
+재작성 시 준수 원칙：
+- **유지**：색상 시스템 (주색/보조색/중성색), 정보 위계 (제목/부제목/본문/주석), 핵심 문안, 레이아웃 골격 (상중하 / 좌우 2열 / 그리드), 페이지 리듬
+- **다운그레이드**：CSS 그라디언트 → 단색 또는 flex 분할, web component → 단락 수준 HTML, 복잡한 SVG → 단순화된 `<img>` 또는 단색 기하도형, 그림자 → 삭제 또는 최소화, 커스텀 폰트 → 시스템 폰트로 전환
+- **재작성**：bare 텍스트 → `<p>` / `<h*>`으로 감싸기, `background-image` → `<img>` 태그, `<p>`의 배경/테두리 → 외부 div로 이동
 
-### Step 3 · 产出对照清单（透明交付）
+### Step 3 · 비교 목록 출력 (투명한 납품)
 
-改写完成后给用户一份 before/after 对照，让他知道哪些视觉细节被简化了：
+재작성 완료 후 before/after 비교를 사용자에게 제공하여 어떤 시각 디테일이 단순화되었는지 알려주세요：
 
 ```
-原设计 → editable 版调整
-- 标题区紫色渐变 → 主色 #5B3DE8 纯色背景
-- 数据卡片阴影 → 删除（改为 2pt 描边区分）
-- 复杂 SVG 折线图 → 简化为 <img> PNG（从 HTML 截图生成）
-- Hero 区 web component 动效 → 静态首帧（web component 无法翻译）
+원본 디자인 → 편집 가능 버전 조정 사항
+- 제목 영역 보라색 그라디언트 → 주색 #5B3DE8 단색 배경
+- 데이터 카드 그림자 → 삭제 (2pt 테두리로 구분)
+- 복잡한 SVG 꺾은선 그래프 → 단순화된 <img> PNG (HTML 스크린샷으로 생성)
+- Hero 영역 web component 동적 효과 → 정적 첫 프레임 (web component 변환 불가)
 ```
 
-### Step 4 · 导出 & 双格式交付
+### Step 4 · 내보내기 & 두 가지 형식 납품
 
-- `editable` 版 HTML → 跑 `scripts/export_deck_pptx.mjs` 出可编辑 PPTX
-- **建议同时保留**原视觉稿 → 跑 `scripts/export_deck_pdf.mjs` 出高保真 PDF
-- 双格式交付给用户：视觉稿的 PDF + 可编辑的 PPTX，各司其职
+- `editable` 버전 HTML → `scripts/export_deck_pptx.mjs` 실행하여 편집 가능 PPTX 출력
+- **원본 시각 시안도 보존할 것을 권장** → `scripts/export_deck_pdf.mjs` 실행하여 고충실도 PDF 출력
+- 두 가지 형식을 함께 납품：시각 시안의 PDF + 편집 가능한 PPTX, 각각의 역할에 맞게 사용
 
-### 什么情况下直接拒绝 B 方案
+### B 방안을 직접 거부해야 하는 경우
 
-个别场景下改写代价过高，应该劝用户放弃 editable PPTX：
-- HTML 核心价值是动画或交互（改写后只剩静态首帧，信息量损失 50%+）
-- 页数 > 30，改写成本超过 2 小时
-- 视觉设计深度依赖精确 SVG / 自定义 filter（改写后和原图几乎无关）
+일부 상황에서는 재작성 비용이 과도하여 사용자에게 편집 가능한 PPTX 포기를 권고해야 합니다：
+- HTML의 핵심 가치가 애니메이션 또는 인터랙션인 경우 (재작성 후 정적 첫 프레임만 남아 정보량이 50%+ 손실)
+- 페이지 수 > 30, 재작성 비용이 2시간 초과
+- 시각 디자인이 정밀한 SVG / 커스텀 filter에 깊이 의존하는 경우 (재작성 후 원본과 거의 관계 없어짐)
 
-此时告诉用户：「这个 deck 改写代价过高，建议出 PDF 而不是 PPTX。如果接收方确实要 pptx 格式，就接受视觉会大幅朴素化——要不要换成 PDF？」
+이 경우 사용자에게 말하세요：「이 덱은 재작성 비용이 너무 높습니다. PDF 출력을 권장하며, PPTX 형식을 편집 가능하게 만들려면 시각적으로 크게 단순화되는 것을 감수해야 합니다 — PDF로 바꾸시겠습니까?」
 
 ---
 
-## 为什么 4 条约束不是 Bug 而是物理约束
+## 왜 4가지 제약이 버그가 아닌 물리적 제약인가
 
-这 4 条不是 `html2pptx.js` 作者偷懒——它们是 **PowerPoint 文件格式（OOXML）本身的约束**投射到 HTML 上的结果：
+이 4가지는 `html2pptx.js` 작성자의 나태함이 아닙니다 — 이것은 **PowerPoint 파일 형식 (OOXML) 자체의 제약**이 HTML에 투영된 결과입니다：
 
-- PPTX 里文字必须在 text frame（`<a:txBody>`），对应段落级 HTML 元素
-- PPTX 的 shape 和 text frame 是两个对象，无法在同一 element 上同时画背景和写文字
-- PPTX 的 shape fill 对 gradient 支持有限（仅某些 preset gradients，不支持 CSS 任意角度渐变）
-- PPTX 的 picture 对象必须引用真实图片文件，不是 CSS 属性
+- PPTX에서 텍스트는 반드시 text frame (`<a:txBody>`) 안에 있어야 하며, 이것이 단락 수준 HTML 요소에 대응
+- PPTX의 shape과 text frame은 두 개의 별도 객체로, 동일 요소에 배경을 그리면서 텍스트를 작성할 수 없음
+- PPTX의 shape fill은 그라디언트 지원이 제한적 (일부 preset gradient만 지원, CSS 임의 각도 그라디언트는 지원하지 않음)
+- PPTX의 picture 객체는 반드시 실제 이미지 파일을 참조해야 하며, CSS 속성이 아님
 
-理解这点后，**不要期待工具变聪明** —— 是 HTML 写法要适配 PPTX 格式，不是反过来。
+이 점을 이해하면, **도구가 더 똑똑해지기를 기대하지 말고** — HTML 작성 방식이 PPTX 형식에 맞춰야 하며, 반대가 아닙니다.
