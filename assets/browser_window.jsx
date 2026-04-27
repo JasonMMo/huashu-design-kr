@@ -1,9 +1,9 @@
 /**
- * BrowserWindow — 浏览器窗口边框（Chrome风格）
+ * BrowserWindow — 브라우저 창 프레임 (Chrome 스타일)
  *
- * 含：traffic lights + tab bar + URL bar
+ * 포함: 트래픽 라이트 + 탭 바 + URL 바
  *
- * 用法：
+ * 사용법:
  *   <BrowserWindow url="https://example.com" title="Example">
  *     <YourWebPage />
  *   </BrowserWindow>
